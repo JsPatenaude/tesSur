@@ -10,17 +10,21 @@ public class BaseShape {
 
     // TODO Initialiser les points.
     public BaseShape() {
-        // ...
+        coords = new HashSet<>();
     }
 
     // TODO prendre une liste de points et creer une nouvelle forme.
     public BaseShape(Collection<Point2d> coords) {
-        // ...
+        this.coords = new HashSet<>(coords);
     }
 
     // TODO ajouter ou retirer des coordonnees a la liste de points.
     public void add(Point2d coord) {
-        // ...
+        for (var point : coords) {
+            if (point.equals(coord)){
+                coords.remove(point);
+            }
+        }
     }
     public void add(BaseShape shape) {
         // ...
@@ -40,7 +44,7 @@ public class BaseShape {
 
     // TODO retourne les coordonnees de la liste.
     public Set<Point2d> getCoords() {
-        return null;
+        return new HashSet<>(coords);
     }
 
     // TODO appliquer la translation sur la forme.

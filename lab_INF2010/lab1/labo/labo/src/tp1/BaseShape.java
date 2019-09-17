@@ -61,16 +61,22 @@ public class BaseShape {
 
     // TODO appliquer la rotation sur la forme.
     public BaseShape rotate(Double angle) {
-        return null;
+        var baseShape = new BaseShape(coords);
+        baseShape.coords = baseShape.rotateAll(angle);
+        return baseShape;
     }
 
     // TODO appliquer la rotation sur la liste.
     public Set<Point2d> rotateAll(Double angle) {
-        return null;
+        var liste = new HashSet<Point2d>();
+        for (var coord : coords) {
+            liste.add(coord.rotate(angle));
+        }
+        return liste;
     }
 
     // TODO retourner une nouvelle forme.
     public BaseShape clone() {
-        return this;
+        return new BaseShape(coords);
     }
 }

@@ -1,6 +1,7 @@
 package com.file;
 
 import com.sections.Section;
+import it.unimi.dsi.fastutil.Hash;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -27,6 +28,12 @@ public class ReadFileLogic {
             return false;
         }
     }
+
+    /**
+     * Getter for the attribute sectionInFile
+     * @return attribute sectionInFile containing the different sections read from the file
+     */
+    public HashSet<Section> getSectionsInFile() { return sectionsInFile; }
 
     /**
      * Read the sections with their information from a Buffer and store them in a set

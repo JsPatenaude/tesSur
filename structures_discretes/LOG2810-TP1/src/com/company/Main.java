@@ -1,6 +1,10 @@
 package com.company;
 import com.file.ReadFileLogic;
+import com.graph.GraphImplement;
 import com.menu.Menu;
+import com.sections.Section;
+
+import java.util.HashSet;
 
 public class Main {
 
@@ -8,7 +12,16 @@ public class Main {
     {
         ReadFileLogic reader = new ReadFileLogic();
         reader.readFile("entrepot.txt");
-        Menu mainMenu = new Menu();
 
+        testGraph(reader.getSectionsInFile());
+
+
+        Menu mainMenu = new Menu();
+    }
+
+    public static void testGraph(HashSet<Section> sectionsInFile)
+    {
+        GraphImplement graph = new GraphImplement(sectionsInFile);
+        System.out.println(graph.toString());
     }
 }

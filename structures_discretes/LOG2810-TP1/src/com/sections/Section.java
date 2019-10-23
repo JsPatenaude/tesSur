@@ -29,6 +29,12 @@ public class Section {
     }
 
     /**
+     * Getter for the distances between nodes
+     * @return section's distances with other nodes
+     */
+    public HashMap<Integer, Integer> getDistances() { return distances_; }
+
+    /**
      * Overloading of the equals function to compare 2 Sections, here 2 sections are equal if they have
      *  the same number
      * @param comparable Section to be compared to

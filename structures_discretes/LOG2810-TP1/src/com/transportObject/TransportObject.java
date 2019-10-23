@@ -10,4 +10,3 @@ public abstract class TransportObject {
     public int getWeight() { return weight; }
 }
 
-

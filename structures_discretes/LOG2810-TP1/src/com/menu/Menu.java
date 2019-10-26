@@ -1,28 +1,49 @@
 package com.menu;
 
+import com.transportObject.TransportObject;
+import com.transportObject.TransportObjectA;
+import com.transportObject.TransportObjectB;
+import com.transportObject.TransportObjectC;
+
 import java.util.Scanner;
 
 public class Menu {
 
     private Scanner inputStream = new Scanner(System.in);
+    private Order order = new Order();
 
     public Menu()
     {
-        switch (getUserChoice())
+        int choice = getUserChoice();
+        while(choice != 0)
         {
-            default:
-                System.out.println("Unhandled Error.");
-            case 0:
-                System.exit(0);
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+            switch (choice)
+            {
+                default:
+                    System.out.println("Unhandled Error.");
+                    break;
+                case 1:
+                    System.out.println("----------Create graph----------");
+                    break;
+                case 2:
+                    System.out.println("----------Display graph----------");
+                    break;
+                case 3:
+                    System.out.println("----------Take order----------");
+                    takeOrder();
+                    break;
+                case 4:
+                    System.out.println("----------Display order----------");
+                    displayOrder();
+                    break;
+                case 5:
+                    System.out.println("----------Find the shortest way----------");
+                    break;
+            }
+            choice = getUserChoice();
         }
+        System.out.println("End of program");
+
     }
 
     /**
@@ -32,10 +53,11 @@ public class Menu {
     private int printOptions()
     {
         System.out.println("Choose between the following options: ");
-        System.out.println("1 - Creer un graphe");
-        System.out.println("2 - Afficher le graphe");
-        System.out.println("3 - Afficher la commande");
-        System.out.println("4 - Trouver le plus court chemin");
+        System.out.println("1 - Create graph");
+        System.out.println("2 - Display graph");
+        System.out.println("3 - Take order");
+        System.out.println("4 - Display order");
+        System.out.println("5 - Find the shortest way");
         System.out.println("To quit enter 'Q'");
 
         String userInput = inputStream.nextLine();
@@ -49,11 +71,32 @@ public class Menu {
     public int getUserChoice()
     {
         int option = printOptions();
-        while(option == 0)
-        {
-            System.out.println("\n\n\n\nPlease enter a valid option!");
-            option = printOptions();
-        }
         return option;
     }
+
+    public void takeOrder()
+    {
+        System.out.println("Object A amount : ");
+        TransportObjectA objectA = new TransportObjectA();
+        Scanner amountA = new Scanner(System.in);
+        order.takeOrder(objectA, amountA.nextInt());
+
+        System.out.println("Object B amount : ");
+        TransportObjectB objectB = new TransportObjectB();
+        Scanner amountB = new Scanner(System.in);
+        order.takeOrder(objectB, amountB.nextInt());
+
+        System.out.println("Object C amount : ");
+        TransportObjectC objectC = new TransportObjectC();
+        Scanner amountC = new Scanner(System.in);
+        order.takeOrder(objectC, amountC.nextInt());
+    }
+
+    public void displayOrder(){
+        for (TransportObject object : order.getList().keySet()) {
+
+            //System.out.println("Object " + object.getName() + " amount : " + order.getList().get(object));
+        }
+    }
+
 }

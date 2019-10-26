@@ -1,9 +1,12 @@
 package com.transportObject;
 
-public class TransportObjectC extends TransportObject {
+public class TransportObjectC extends TransportObject
+{
     /**
-     * Getter for the objectC's constant weight=
-     * @return ObjectC's weight
+     * Constructor of an object type C
      */
-    private final int weight = 6;
+    public TransportObjectC()
+    {
+        weight = 6;
+    }
 }

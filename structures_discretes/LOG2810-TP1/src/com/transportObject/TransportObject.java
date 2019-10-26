@@ -1,6 +1,7 @@
 package com.transportObject;
 
-public abstract class TransportObject {
+public abstract class TransportObject
+{
     protected int weight = 0;
 
     /**

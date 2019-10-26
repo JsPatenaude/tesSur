@@ -2,7 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9671715f-c65e-4a24-8927-a0f18d1abbff" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/com/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/menu/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphConsole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robot/Robot.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robot/Robot.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robot/RobotX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robot/RobotX.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robot/RobotY.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robot/RobotY.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/robot/RobotZ.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robot/RobotZ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectC.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -92,5 +103,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/company/Main.java</url>
+          <line>47</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

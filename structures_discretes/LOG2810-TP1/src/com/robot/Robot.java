@@ -6,7 +6,7 @@ public abstract class Robot {
 
     protected int maxWeight = 0;
     protected int currentWeight = 0;
-    protected double speed = 0;
+    protected double k;
     Vector<TransportObject> baggage = new Vector<TransportObject>();
 
     /**
@@ -23,14 +23,15 @@ public abstract class Robot {
     public void addBaggage(TransportObject toAdd)
     {
         if(toAdd != null)
-            if(canAddObject(toAdd.getWeight()))
-            {
+        {
+            if (canAddObject(toAdd.getWeight())) {
                 baggage.add(toAdd);
-                updateSpeed();
-            }
-            else
+                currentWeight += toAdd.getWeight();
+                updateK();
+            } else
                 System.out.println("Sorry Robot is full.\nCurrent Weight: " + currentWeight
                         + " kg\nMaxWeight: " + maxWeight + " kg");
+        }
     }
 
     /**
@@ -38,17 +39,17 @@ public abstract class Robot {
      * @param distance distance for which the time will be evaluated
      * @return The time that will be taken
      */
-    public double findETA(double distance) { return distance * speed; }
+    public double findETA(double distance) { return distance * k; }
 
     /**
      * Getter for the robot's current speed
      * @return Current speed of the robot with the current load
      */
-    public double getSpeed() { return speed; }
+    public double getK() { return k; }
 
     /**
      * Abstract function (should be defined for each child class), to calculate the speed depending
      *      on the current load's weight
      */
-    protected abstract void updateSpeed();
+    protected abstract void updateK();
 }

@@ -74,8 +74,8 @@ public class ReadFileLogic {
                 if (currentSectionNumber == wantedNumber)
                     current.addDistance(toNodeNumber, distance);
                 else
-                if(currentSectionNumber == toNodeNumber)
-                    current.addDistance(wantedNumber, distance);
+                    if(currentSectionNumber == toNodeNumber)
+                        current.addDistance(wantedNumber, distance);
             }
             line = inputFileBuffer.readLine();
         }

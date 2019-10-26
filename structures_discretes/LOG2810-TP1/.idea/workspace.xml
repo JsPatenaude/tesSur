@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9671715f-c65e-4a24-8927-a0f18d1abbff" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/com/graph/GraphConsole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphImplement.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphImplement.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/graph/GraphImplement.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/graph/GraphImplement.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/file/ReadFileLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/file/ReadFileLogic.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +37,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/Downloads/jgrapht-1.3.0/lib/jheaps-0.9.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />

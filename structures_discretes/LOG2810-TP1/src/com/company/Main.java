@@ -1,5 +1,6 @@
 package com.company;
 import com.file.ReadFileLogic;
+import com.graph.GraphConsole;
 import com.graph.GraphImplement;
 import com.menu.Menu;
 import com.sections.Section;
@@ -20,8 +21,7 @@ public class Main {
     }
 
     public static void testGraph(HashSet<Section> sectionsInFile) throws IOException {
-        GraphImplement graph = new GraphImplement(sectionsInFile);
-        graph.generate();
-        System.out.println(graph.toString());
+        GraphConsole graph = new GraphConsole(sectionsInFile);
+        graph.display();
     }
 }

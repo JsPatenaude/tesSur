@@ -1,16 +1,21 @@
 package com.menu;
 
+import com.file.ReadFileLogic;
+import com.graph.GraphConsole;
+import com.sections.Section;
 import com.transportObject.TransportObject;
 import com.transportObject.TransportObjectA;
 import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
 
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class Menu {
 
     private Scanner inputStream = new Scanner(System.in);
     private Order order = new Order();
+    private HashSet<Section> sectionsInFile = new HashSet<>();
 
     public Menu()
     {
@@ -24,9 +29,11 @@ public class Menu {
                     break;
                 case 1:
                     System.out.println("----------Create graph----------");
+                    createGraph();
                     break;
                 case 2:
                     System.out.println("----------Display graph----------");
+                    displayGraph();
                     break;
                 case 3:
                     System.out.println("----------Take order----------");
@@ -68,13 +75,13 @@ public class Menu {
      * Get the user's menu choice, and treat errors
      * @return What the user chooses
      */
-    public int getUserChoice()
+    private int getUserChoice()
     {
         int option = printOptions();
         return option;
     }
 
-    public void takeOrder()
+    private void takeOrder()
     {
         System.out.println("Object A amount : ");
         TransportObjectA objectA = new TransportObjectA();
@@ -92,11 +99,25 @@ public class Menu {
         order.takeOrder(objectC, amountC.nextInt());
     }
 
-    public void displayOrder(){
+    private void displayOrder(){
         for (TransportObject object : order.getList().keySet()) {
 
             //System.out.println("Object " + object.getName() + " amount : " + order.getList().get(object));
         }
+    }
+
+    private void displayGraph()
+    {
+        if(sectionsInFile.isEmpty())
+            System.out.println("Please Create the graph first");
+        GraphConsole graphOutput = new GraphConsole(sectionsInFile);
+        graphOutput.display();
+    }
+
+    private void createGraph()
+    {
+        ReadFileLogic file = new ReadFileLogic();
+        sectionsInFile = file.getSectionsInFile();
     }
 
 }

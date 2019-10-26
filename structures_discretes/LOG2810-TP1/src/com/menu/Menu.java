@@ -50,7 +50,6 @@ public class Menu {
             choice = getUserChoice();
         }
         System.out.println("End of program");
-
     }
 
     /**
@@ -106,14 +105,23 @@ public class Menu {
         }
     }
 
+    /**
+     * Displays the graph (if created before) or an error!
+     */
     private void displayGraph()
     {
-        if(sectionsInFile.isEmpty())
-            System.out.println("Please Create the graph first");
         GraphConsole graphOutput = new GraphConsole(sectionsInFile);
-        graphOutput.display();
+        try {
+            graphOutput.display();
+        } catch (Exception error) {
+            System.out.println("Please Create the graph first");
+            System.out.println(error.getMessage());
+        }
     }
 
+    /**
+     * Creates the graph from the available information in the text file
+     */
     private void createGraph()
     {
         ReadFileLogic file = new ReadFileLogic();

@@ -94,7 +94,8 @@ public class Menu {
 
     public void displayOrder(){
         for (TransportObject object : order.getList().keySet()) {
-            System.out.println("Object " + object.getName() + " amount : " + order.getList().get(object));
+
+            //System.out.println("Object " + object.getName() + " amount : " + order.getList().get(object));
         }
     }
 

@@ -20,5 +20,7 @@ public class Order {
 
     public HashMap<TransportObject, Integer> getList(){ return list; }
 
+    //TODO faire fonctionner les getName() et getWeight dans les transport object et utiliser le getname ici
+
     private HashMap<TransportObject, Integer> list;
 }

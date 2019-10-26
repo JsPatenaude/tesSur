@@ -9,5 +9,10 @@ public abstract class TransportObject
      * @return Object's weight
      */
     public int getWeight() { return weight; }
+
+    /**
+     * Getter of the object's name
+     */
+    abstract public String getName();
 }
 

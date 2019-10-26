@@ -58,6 +58,7 @@ public class Menu {
      */
     private int printOptions()
     {
+        System.out.println("\n");
         System.out.println("Choose between the following options: ");
         System.out.println("1 - Create graph");
         System.out.println("2 - Display graph");
@@ -98,11 +99,12 @@ public class Menu {
         order.takeOrder(objectC, amountC.nextInt());
     }
 
-    private void displayOrder(){
-        for (TransportObject object : order.getList().keySet()) {
-
-            //System.out.println("Object " + object.getName() + " amount : " + order.getList().get(object));
-        }
+    private void displayOrder()
+    {
+        if(sectionsInFile.isEmpty())
+            System.out.println("Please Create the order first");
+        else
+            order.display();
     }
 
     /**
@@ -110,12 +112,12 @@ public class Menu {
      */
     private void displayGraph()
     {
-        GraphConsole graphOutput = new GraphConsole(sectionsInFile);
-        try {
-            graphOutput.display();
-        } catch (Exception error) {
+        if(sectionsInFile.isEmpty())
             System.out.println("Please Create the graph first");
-            System.out.println(error.getMessage());
+        else
+        {
+            GraphConsole graphOutput = new GraphConsole(sectionsInFile);
+            graphOutput.display();
         }
     }
 
@@ -126,6 +128,10 @@ public class Menu {
     {
         ReadFileLogic file = new ReadFileLogic();
         sectionsInFile = file.getSectionsInFile();
+        if(sectionsInFile.isEmpty())
+            System.out.println("Sorry!! The graph couldn't be created :(");
+        else
+            System.out.println("File read and graph created successfully!");
     }
 
 }

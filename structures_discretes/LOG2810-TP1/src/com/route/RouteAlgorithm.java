@@ -2,12 +2,13 @@ package com.route;
 
 import com.sections.Section;
 
+import java.util.HashSet;
+
 public class RouteAlgorithm {
 
-    public RouteAlgorithm()
-    {
+    HashSet<Section> sections;
 
-    }
+    public RouteAlgorithm(HashSet<Section> sectionsFromFile) { sections = sectionsFromFile; }
 
     public void displayBestRoute()
     {

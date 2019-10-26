@@ -3,10 +3,15 @@ package com.menu;
 import com.transportObject.TransportObject;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
-public class Order {
+public class Order
+{
+    private HashMap<TransportObject, Integer> list;
+
     public Order(){
-        list = new HashMap<TransportObject, Integer>();
+        list = new HashMap<>();
     }
 
     public void takeOrder(TransportObject objectType, Integer amount){
@@ -14,13 +19,18 @@ public class Order {
     };
 
     // TODO
-    public void displayOrder(){
-
+    public void display()
+    {
+        HashMap<TransportObject, Integer> listCopy = list;
+        Iterator it = listCopy.entrySet().iterator();
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry)it.next();
+            TransportObject current = (TransportObject) pair.getKey();
+            System.out.println( current.getName() + ": " + pair.getValue());
+            it.remove(); // To Avoid a current modification exception
+        }
     }
 
     public HashMap<TransportObject, Integer> getList(){ return list; }
-
-    //TODO faire fonctionner les getName() et getWeight dans les transport object et utiliser le getname ici
-
-    private HashMap<TransportObject, Integer> list;
 }

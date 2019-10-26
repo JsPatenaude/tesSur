@@ -10,10 +10,20 @@ import java.util.HashSet;
 
 public class ReadFileLogic {
 
-    private HashSet<Section> sectionsInFile = new HashSet<Section>();
+    private HashSet<Section> sectionsInFile;
     private String line;
 
-    public boolean readFile(String filePath)
+    public ReadFileLogic()
+    {
+        sectionsInFile = new HashSet<Section>();
+        readFile("entrepot.txt");
+    }
+
+    /**
+     * Function to read data from a filee
+     * @param filePath path to the file to be read from
+     */
+    private boolean readFile(String filePath)
     {
         BufferedReader inputFileBuffer;
         try {

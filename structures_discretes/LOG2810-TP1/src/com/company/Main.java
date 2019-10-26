@@ -19,8 +19,6 @@ import java.util.HashSet;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        ReadFileLogic reader = new ReadFileLogic();
-        reader.readFile("entrepot.txt");
 
         //testGraph(reader.getSectionsInFile());
         //testRobot();

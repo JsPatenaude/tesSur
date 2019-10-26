@@ -16,8 +16,5 @@ public class RobotX extends Robot
      * @return void
      */
     @Override
-    protected void updateK()
-    {
-        k = 1 + currentWeight;
-    }
+    protected void updateK() { k = 1 + currentWeight; }
 }

@@ -9,4 +9,7 @@ public class TransportObjectC extends TransportObject
     {
         weight = 6;
     }
+
+    @Override
+    public String getName() { return "Object C"; }
 }

@@ -48,7 +48,6 @@ public class GraphConsole {
     {
         HashMap<Integer, Integer> neighborsCopy = neighbors;
         Iterator it = neighborsCopy.entrySet().iterator();
-        neighbors.size();
         while (it.hasNext())
         {
             Map.Entry pair = (Map.Entry)it.next();

@@ -1,6 +1,6 @@
 package com.transportObject;
 
-public class TransportObjectA {
+public class TransportObjectA extends TransportObject {
 
     /**
      * Getter for the object's constant weight=

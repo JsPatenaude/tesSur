@@ -9,5 +9,5 @@ public class TransportObjectC extends TransportObject
     static public int getWeight() { return 6; }
 
 
-    public String getName() { return "Object C"; }
+    static public String getName() { return "Object C"; }
 }

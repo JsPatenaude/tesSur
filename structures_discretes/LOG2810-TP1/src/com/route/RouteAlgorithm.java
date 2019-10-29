@@ -1,5 +1,6 @@
 package com.route;
 
+import com.file.ReadFileLogic;
 import com.sections.Section;
 import com.transportObject.TransportObject;
 import com.transportObject.TransportObjectA;
@@ -11,12 +12,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
 
-public class RouteAlgorithm {
-
-    HashSet<Section> sections;
-    int numberA = 0;
-    int numberB = 0;
-    int numberC = 0;
+public class RouteAlgorithm
+{
+    private HashSet<Section> sections;
+    private int numberA;
+    private int numberB;
+    private int numberC;
 
     public RouteAlgorithm(HashSet<Section> sectionsFromFile, int numberOfA, int numberOfB, int numberOfC)
     {
@@ -24,6 +25,9 @@ public class RouteAlgorithm {
         numberA = numberOfA;
         numberB = numberOfB;
         numberC = numberOfC;
+        AllPath g = new AllPath(sections);
+        System.out.println("Following are all different paths from 2 to 3");
+        g.printAllPaths(2,3);
     }
 
     public boolean displayBestRoute()
@@ -52,17 +56,18 @@ public class RouteAlgorithm {
 
     private void findAllPath()
     {
-        Section root =  findSection(0);
-        if(root != null)
-        {
-            HashMap<Integer, Integer> neighbors = root.getDistances();
-            Iterator it = neighbors.entrySet().iterator();
-            while (it.hasNext()) {
-                Map.Entry pair = (Map.Entry)it.next();
-                it.remove(); // avoids a ConcurrentModificationException
+        Dijkstra algorithm = new Dijkstra(sections);
+        //for()
+    }
 
-                System.out.println(pair.getKey() + " = " + pair.getValue());
-            }
+    private void removeSection(int toRemove)
+    {
+        for(Section element : sections)
+        {
+            if(element.getSectionNumber_() == toRemove)
+                sections.remove(element);
+            if(element.getDistances().containsKey(toRemove))
+                element.getDistances().remove(toRemove);
         }
     }
 

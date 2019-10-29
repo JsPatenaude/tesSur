@@ -139,11 +139,10 @@ public class Menu {
 
     private void findShortestPath()
     {
-        Dijkstra dij = new Dijkstra(sectionsInFile);
-        dij.runDijkstra(17,0);
-        //RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
-          //      order.getNumberOfB(), order.getNumberOfC());
-
+       // Dijkstra dij = new Dijkstra(sectionsInFile);
+        //dij.runDijkstra(0,0);
+        RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
+                order.getNumberOfB(), order.getNumberOfC());
     }
 
 }

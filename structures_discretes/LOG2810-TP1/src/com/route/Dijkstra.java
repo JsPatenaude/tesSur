@@ -16,6 +16,11 @@ public class Dijkstra
     {
         vertices = new Vertex[sectionsFromFile.size()];
         sections = sectionsFromFile;
+        convertHashSet(sectionsFromFile);
+    }
+
+    public void convertHashSet(HashSet<Section> sectionsFromFile)
+    {
         for(Section element: sections) // Adding all section as vertices
             vertices[element.getSectionNumber_()] = new Vertex(element.getSectionNumber_());
 
@@ -58,16 +63,14 @@ public class Dijkstra
         while (!vertexQueue.isEmpty())
         {
             Vertex u = vertexQueue.poll();
-
-            // Visit each edge exiting u
             for (Edge e : u.adjacency)
             {
                 Vertex v = e.target;
                 double weight = e.weight;
                 double distanceThroughU = u.minDistance + weight;
-                if (distanceThroughU < v.minDistance) {
+                if (distanceThroughU < v.minDistance)
+                {
                     vertexQueue.remove(v);
-
                     v.minDistance = distanceThroughU ;
                     v.previous = u;
                     vertexQueue.add(v);

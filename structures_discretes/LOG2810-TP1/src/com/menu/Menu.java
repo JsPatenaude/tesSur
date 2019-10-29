@@ -2,6 +2,7 @@ package com.menu;
 
 import com.file.ReadFileLogic;
 import com.graph.GraphConsole;
+import com.route.Dijkstra;
 import com.route.RouteAlgorithm;
 import com.sections.Section;
 import com.transportObject.TransportObject;
@@ -138,9 +139,11 @@ public class Menu {
 
     private void findShortestPath()
     {
-        RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
-                order.getNumberOfB(), order.getNumberOfC());
-        
+        Dijkstra dij = new Dijkstra(sectionsInFile);
+        dij.runDijkstra(17,0);
+        //RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
+          //      order.getNumberOfB(), order.getNumberOfC());
+
     }
 
 }

@@ -4,19 +4,13 @@
     <list default="true" id="9671715f-c65e-4a24-8927-a0f18d1abbff" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphConsole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/file/ReadFileLogic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/file/ReadFileLogic.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/graph/GraphConsole.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/graph/GraphConsole.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/menu/Menu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/menu/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/menu/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robot/RobotX.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robot/RobotX.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/robot/RobotY.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/robot/RobotY.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sections/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sections/Section.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -45,7 +39,7 @@
     <property name="Repository.Attach.JavaDocs" value="false" />
     <property name="Repository.Attach.Sources" value="false" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../inf2010/tp4" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -112,8 +106,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/com/menu/Menu.java</url>
-          <line>24</line>
-          <option name="timeStamp" value="4" />
+          <line>140</line>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

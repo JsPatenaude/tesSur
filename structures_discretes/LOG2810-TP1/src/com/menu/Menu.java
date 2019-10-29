@@ -2,6 +2,7 @@ package com.menu;
 
 import com.file.ReadFileLogic;
 import com.graph.GraphConsole;
+import com.route.RouteAlgorithm;
 import com.sections.Section;
 import com.transportObject.TransportObject;
 import com.transportObject.TransportObjectA;
@@ -45,6 +46,7 @@ public class Menu {
                     break;
                 case 5:
                     System.out.println("----------Find the shortest way----------");
+                    findShortestPath();
                     break;
             }
             choice = getUserChoice();
@@ -86,22 +88,22 @@ public class Menu {
         System.out.println("Object A amount : ");
         TransportObjectA objectA = new TransportObjectA();
         Scanner amountA = new Scanner(System.in);
-        order.takeOrder(objectA, amountA.nextInt());
+        order.takeOrder(objectA.getName(), amountA.nextInt());
 
         System.out.println("Object B amount : ");
         TransportObjectB objectB = new TransportObjectB();
         Scanner amountB = new Scanner(System.in);
-        order.takeOrder(objectB, amountB.nextInt());
+        order.takeOrder(objectB.getName(), amountB.nextInt());
 
         System.out.println("Object C amount : ");
         TransportObjectC objectC = new TransportObjectC();
         Scanner amountC = new Scanner(System.in);
-        order.takeOrder(objectC, amountC.nextInt());
+        order.takeOrder(objectC.getName(), amountC.nextInt());
     }
 
     private void displayOrder()
     {
-        if(sectionsInFile.isEmpty())
+        if(order.getNumberOfA() == -1)
             System.out.println("Please Create the order first");
         else
             order.display();
@@ -132,6 +134,13 @@ public class Menu {
             System.out.println("Sorry!! The graph couldn't be created :(");
         else
             System.out.println("File read and graph created successfully!");
+    }
+
+    private void findShortestPath()
+    {
+        RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
+                order.getNumberOfB(), order.getNumberOfC());
+        
     }
 
 }

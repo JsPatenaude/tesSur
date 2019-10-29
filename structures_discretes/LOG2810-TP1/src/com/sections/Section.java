@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Section {
+public class Section implements Comparable {
 
     private int numberObjectA_ = 0;
     private int numberObjectB_ = 0;
@@ -96,5 +96,15 @@ public class Section {
     {
         Integer distance = distances_.get(toNode);
         return  distance != null ? distance : -1;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Section argument = (Section)o;
+        if(sectionNumber_ > argument.sectionNumber_)
+            return 1;
+        if(sectionNumber_ < argument.sectionNumber_)
+            return -1;
+        return 0;
     }
 }

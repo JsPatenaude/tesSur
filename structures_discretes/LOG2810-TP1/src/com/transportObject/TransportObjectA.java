@@ -1,15 +1,12 @@
 package com.transportObject;
 
-public class TransportObjectA extends TransportObject {
+public class TransportObjectA {
 
     /**
-     * Constructor of an object type A
+     * Getter for the object's constant weight=
+     * @return Object's weight
      */
-    public TransportObjectA()
-    {
-        weight = 1;
-    }
+    static public int getWeight() { return 1; }
 
-    @Override
-    public String getName() { return "Object A"; }
+    static public String getName() { return "Object A"; }
 }

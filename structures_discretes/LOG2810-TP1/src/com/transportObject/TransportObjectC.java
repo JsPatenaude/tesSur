@@ -3,13 +3,11 @@ package com.transportObject;
 public class TransportObjectC extends TransportObject
 {
     /**
-     * Constructor of an object type C
+     * Getter for the object's constant weight=
+     * @return Object's weight
      */
-    public TransportObjectC()
-    {
-        weight = 6;
-    }
+    static public int getWeight() { return 6; }
 
-    @Override
+
     public String getName() { return "Object C"; }
 }

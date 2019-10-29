@@ -1,6 +1,10 @@
 package com.route;
 
 import com.sections.Section;
+import com.transportObject.TransportObject;
+import com.transportObject.TransportObjectA;
+import com.transportObject.TransportObjectB;
+import com.transportObject.TransportObjectC;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -27,9 +31,9 @@ public class RouteAlgorithm {
         System.out.println();
 
 
-        int time = 0, typeRobot =  0;
+        int time = 0;
         System.out.println("Temps: " + time);
-        System.out.println("Robot utilisé: " + typeRobot);
+        System.out.println("Robot utilisé: " + findRobotType());
         return true;
     }
 
@@ -62,6 +66,18 @@ public class RouteAlgorithm {
         }
     }
 
+    private String findRobotType()
+    {
+        int totalWeight = numberA * TransportObjectA.getWeight() + numberB * TransportObjectB.getWeight()
+                + numberC * TransportObjectC.getWeight();
+        if(totalWeight > TransportObjectA.getWeight() && totalWeight > TransportObjectB.getWeight())
+        {
+            if(totalWeight > TransportObjectC.getWeight())
+                return "No robot can carry that much weight: " + totalWeight + "kg.";
+            return "Only Robot C can carry " + totalWeight + "kg.";
+        }
 
 
+        return "";
+    }
 }

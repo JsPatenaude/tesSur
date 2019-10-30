@@ -30,7 +30,8 @@ public class ReadPaths
             line = inputFileBuffer.readLine();
             while(!line.isEmpty())
             {
-                paths.add(readPath(line));
+                LinkedHashMap<Integer, Section> pathFromFile = readPath(line);
+                paths.add(pathFromFile);
                 line = inputFileBuffer.readLine();
                 if(line == null)
                     break;
@@ -47,7 +48,7 @@ public class ReadPaths
      */
     public HashSet<LinkedHashMap<Integer, Section>> getAllPath()
     {
-        return new HashSet<LinkedHashMap<Integer, Section>>(paths);
+        return new HashSet<>(paths);
     }
 
     /**

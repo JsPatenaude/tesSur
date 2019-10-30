@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9671715f-c65e-4a24-8927-a0f18d1abbff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/AllPath.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/file/ReadPaths.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AllPath.txt" beforeDir="false" afterPath="$PROJECT_DIR$/AllPath.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/AllPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/AllPath.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/sections/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/sections/Section.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/menu/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/file/ReadPaths.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/file/ReadPaths.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/route/AllPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/route/AllPath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/route/Path.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/sections/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sections/Section.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectC.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -118,5 +108,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/com/file/ReadPaths.java</url>
+          <line>42</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

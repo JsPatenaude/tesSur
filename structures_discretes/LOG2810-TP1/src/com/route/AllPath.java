@@ -21,7 +21,7 @@ public class AllPath
     public AllPath(HashSet<Section> sections)
     {
         numberOfVertices = sections.size();
-        initAdjList();
+        initializeAdjacencyList();
         HashSet<Section> copy = new HashSet<>(sections);
         for(Section element: copy) // For each section add it's edges
         {
@@ -43,7 +43,7 @@ public class AllPath
      * Function that initializez the adjacency list.
      */
     @SuppressWarnings("unchecked")
-    private void initAdjList()
+    private void initializeAdjacencyList()
     {
         adjacencyList = new ArrayList[numberOfVertices];
         for(int i = 0; i < numberOfVertices; i++)
@@ -83,6 +83,7 @@ public class AllPath
         if (origin.equals(destination))
         {
             System.out.println(localPathList);
+            printAllPathOfLocalPath(localPathList);
             isVisited[origin]= false;
             return ;
         }
@@ -96,5 +97,32 @@ public class AllPath
             }
         }
         isVisited[origin] = false;
+    }
+
+    /**
+     * Function that prints all possible reversing paths inside a path.
+     * @param localPathList local path being used
+     */
+    private void printAllPathOfLocalPath(List<Integer> localPathList)
+    {
+        for(int position = 1; position <= localPathList.size(); position++)
+        {
+            List<Integer> newPath = new ArrayList<>(localPathList.subList(0, position));
+            List<Integer> reversed = new ArrayList<>(localPathList.subList(0, position));
+            Collections.reverse(reversed);
+            newPath.addAll(reversed);
+            System.out.println(newPath);
+        }
+    }
+
+    /**
+     * Function to create the reverse path.
+     * @param localPathList to be reversed
+     * @return reversed list
+     */
+    private List<Integer> createReversePath(List<Integer> localPathList)
+    {
+        Collections.reverse(localPathList);
+        return localPathList;
     }
 } 

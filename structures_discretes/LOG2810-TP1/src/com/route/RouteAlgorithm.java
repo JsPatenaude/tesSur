@@ -11,7 +11,6 @@ import com.transportObject.TransportObjectA;
 import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
 
-import javax.swing.plaf.metal.MetalIconFactory;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -137,8 +136,8 @@ public class RouteAlgorithm
         String separator = "\n    ==> \n";
         StringBuilder path = new StringBuilder();
         for(int i = 0; i < bestPath.size() - 1; i++)
-            path.append("Section " + bestPath.get(i).getSectionNumber_()).append(printPickups(pickUps.get(i))).append(separator);
-        path.append("Section " + bestPath.get(bestPath.size()-1).getSectionNumber_()).append(printPickups(pickUps.get(bestPath.size()-1)));
+            path.append("Section ").append(bestPath.get(i).getSectionNumber_()).append(printPickups(pickUps.get(i))).append(separator);
+        path.append("Section ").append(bestPath.get(bestPath.size()-1).getSectionNumber_()).append(printPickups(pickUps.get(bestPath.size()-1)));
         path.append("\n");
         return path.toString();
     }
@@ -149,11 +148,11 @@ public class RouteAlgorithm
         if(currentOrder.getNumberOfA() != 0 || currentOrder.getNumberOfB() != 0 || currentOrder.getNumberOfC() !=0)
         {
             if(currentOrder.getNumberOfA() != 0)
-                pickupsString.append(" Object A: " + currentOrder.getNumberOfA() + " ");
+                pickupsString.append(" Object A: ").append(currentOrder.getNumberOfA()).append(" ");
             if(currentOrder.getNumberOfB() != 0)
-                pickupsString.append(" Object B: " + currentOrder.getNumberOfB() + " ");
+                pickupsString.append(" Object B: ").append(currentOrder.getNumberOfB()).append(" ");
             if(currentOrder.getNumberOfC() != 0)
-                pickupsString.append(" Object C: " + currentOrder.getNumberOfC() + " ");
+                pickupsString.append(" Object C: ").append(currentOrder.getNumberOfC()).append(" ");
         }
         return pickupsString.toString();
     }

@@ -4,6 +4,9 @@ package com.route;
 
 import com.sections.Section;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.*;
 
 public class AllPath
@@ -11,13 +14,16 @@ public class AllPath
     private int numberOfVertices;
     private ArrayList<Integer>[] adjacencyList;
 
-    //Constructor
+    /**
+     * Constructor, converts a section to it's own definition of graph
+     * @param sections sections container to be written in the graph
+     */
     public AllPath(HashSet<Section> sections)
     {
         numberOfVertices = sections.size();
         initAdjList();
-
-        for(Section element: sections) // For each section add it's edges
+        HashSet<Section> copy = new HashSet<>(sections);
+        for(Section element: copy) // For each section add it's edges
         {
             HashMap<Integer, Integer> neighbors = element.getDistances();
             Iterator it = neighbors.entrySet().iterator();
@@ -27,10 +33,15 @@ public class AllPath
                 addEdge(element.getSectionNumber_(), (Integer) pair.getKey());
             }
         }
+        try {
+            PrintStream o = new PrintStream(new File("AllPath.txt"));
+            System.setOut(o);
+        } catch (FileNotFoundException e) { System.out.println(e.getMessage()); }
     }
 
-    // utility method to initialise
-    // adjacency list
+    /**
+     * Function that initializez the adjacency list.
+     */
     @SuppressWarnings("unchecked")
     private void initAdjList()
     {
@@ -39,62 +50,51 @@ public class AllPath
             adjacencyList[i] = new ArrayList<>();
     }
 
-    // add edge from u to v
-    public void addEdge(int u, int v) { adjacencyList[u].add(v); }
+    /**
+     * Function to add an edge, to the adjacency list (from a vertex u to a vertex v)
+     * @param origin origin vertex
+     * @param destination destination vertex
+     */
+    public void addEdge(int origin, int destination) { adjacencyList[origin].add(destination); }
 
-    // Prints all paths from
-    // 's' to 'd'
-    public void printAllPaths(int s, int d)
+    /**
+     * Function that prints all paths between 2 vertices
+     * @param origin origin vertex
+     * @param destination destination vertex
+     */
+    public void printAllPaths(int origin, int destination)
     {
         boolean[] isVisited = new boolean[numberOfVertices];
         ArrayList<Integer> pathList = new ArrayList<>();
-
-        //add source to path[] 
-        pathList.add(s);
-
-        //Call recursive utility 
-        printAllPathsUtil(s, d, isVisited, pathList);
+        pathList.add(origin);
+        printAllPathsUtil(origin, destination, isVisited, pathList);
     }
 
-    // A recursive function to print 
-    // all paths from 'u' to 'd'. 
-    // isVisited[] keeps track of 
-    // vertices in current path. 
-    // localPathList<> stores actual 
-    // vertices in the current path 
-    private void printAllPathsUtil(Integer u, Integer d,
-                                   boolean[] isVisited,
-                                   List<Integer> localPathList) {
-
-        // Mark the current node 
-        isVisited[u] = true;
-
-        if (u.equals(d))
+    /**
+     * Function that prints all paths between 2 vertices
+     * @param origin origin vertex
+     * @param destination destination vertex
+     * @param isVisited boolean indicating if a vertex has been visited or not
+     * @param localPathList the current path list being used
+     */
+    private void printAllPathsUtil(Integer origin, Integer destination, boolean[] isVisited, List<Integer> localPathList)
+    {
+        isVisited[origin] = true;
+        if (origin.equals(destination))
         {
             System.out.println(localPathList);
-            // if match found then no need to traverse more till depth 
-            isVisited[u]= false;
+            isVisited[origin]= false;
             return ;
         }
-
-        // Recur for all the vertices 
-        // adjacent to current vertex 
-        for (Integer i : adjacencyList[u])
+        for (Integer i : adjacencyList[origin])
         {
             if (!isVisited[i])
             {
-                // store current node  
-                // in path[] 
                 localPathList.add(i);
-                printAllPathsUtil(i, d, isVisited, localPathList);
-
-                // remove current node 
-                // in path[] 
+                printAllPathsUtil(i, destination, isVisited, localPathList);
                 localPathList.remove(i);
             }
         }
-
-        // Mark the current node 
-        isVisited[u] = false;
+        isVisited[origin] = false;
     }
 } 

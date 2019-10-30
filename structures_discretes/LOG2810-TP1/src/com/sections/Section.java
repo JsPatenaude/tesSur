@@ -1,8 +1,6 @@
 package com.sections;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Section implements Comparable {
 
@@ -28,11 +26,24 @@ public class Section implements Comparable {
         numberObjectC_ = numberObjectC;
     }
 
+//    public Section clone()
+//    {
+//        Section clone = new Section(sectionNumber_, numberObjectA_, numberObjectB_, numberObjectC_);
+//        HashMap<Integer, Integer> neighbors = getDistances();
+//        Iterator it = neighbors.entrySet().iterator();
+//        while (it.hasNext()) {
+//            Map.Entry pair = (Map.Entry)it.next();
+//            it.remove(); // avoids a ConcurrentModificationException
+//            clone.addDistance((Integer) pair.getKey(), (Integer) pair.getValue());
+//        }
+//        return clone;
+//    }
+
     /**
      * Getter for the distances between nodes
      * @return section's distances with other nodes
      */
-    public HashMap<Integer, Integer> getDistances() { return distances_; }
+    public HashMap<Integer, Integer> getDistances() { return new HashMap<Integer, Integer>(distances_); }
 
     /**
      * Overloading of the equals function to compare 2 Sections, here 2 sections are equal if they have
@@ -99,6 +110,11 @@ public class Section implements Comparable {
     }
 
     @Override
+    /**
+     * Function essential to implement comparable, compares 2 sections with their number
+     * @param o section to be compared to
+     * @return 0 is equal, 1 is this > 0 else -1
+     */
     public int compareTo(Object o) {
         Section argument = (Section)o;
         if(sectionNumber_ > argument.sectionNumber_)

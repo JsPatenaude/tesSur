@@ -2,23 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9671715f-c65e-4a24-8927-a0f18d1abbff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/com/route/AllPath.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AllPath.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/file/ReadPaths.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/company/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/Robot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/Robot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/Dijkstra$Edge.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/Dijkstra$Edge.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/Dijkstra$Vertex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/Dijkstra$Vertex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/Dijkstra.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/Dijkstra.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/AllPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/AllPath.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectA.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/sections/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/sections/Section.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/menu/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/route/Dijkstra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/route/Dijkstra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/route/AllPath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/route/AllPath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/route/Path.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/route/RouteAlgorithm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/sections/Section.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/sections/Section.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectA.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/transportObject/TransportObjectB.java" afterDir="false" />
@@ -73,9 +68,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Unnamed">
+  <component name="RunManager" selected="Application.AllPath">
     <configuration name="AllPath" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" value="com.route.AllPath" />
+      <option name="MAIN_CLASS_NAME" value="com.route.RouteAlgorithm" />
       <module name="LOG2810-TP1" />
       <method v="2">
         <option name="Make" enabled="true" />

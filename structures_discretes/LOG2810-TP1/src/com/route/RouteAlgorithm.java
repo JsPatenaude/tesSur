@@ -1,16 +1,15 @@
 package com.route;
 
 import com.file.ReadFileLogic;
+import com.file.ReadPaths;
+import com.menu.Order;
 import com.sections.Section;
-import com.transportObject.TransportObject;
 import com.transportObject.TransportObjectA;
 import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
+import java.io.PrintStream;
+import java.util.*;
 
 public class RouteAlgorithm
 {
@@ -25,20 +24,71 @@ public class RouteAlgorithm
         numberA = numberOfA;
         numberB = numberOfB;
         numberC = numberOfC;
-        AllPath g = new AllPath(sections);
-        System.out.println("Following are all different paths from 2 to 3");
-        g.printAllPaths(2,3);
+        getBestRoute();
     }
 
     public boolean displayBestRoute()
     {
         System.out.println();
-
+        getBestRoute();
 
         int time = 0;
         System.out.println("Temps: " + time);
         System.out.println("Robot utilisé: " + findRobotType());
         return true;
+    }
+
+    private void getBestRoute()
+    {
+        HashSet<LinkedHashMap<Integer, Section>> allPaths = findAllPath();
+        HashSet<LinkedHashMap<Integer, Section>> modifiedPath = new HashSet<LinkedHashMap<Integer, Section>>();
+        for(LinkedHashMap<Integer, Section> aPath : allPaths)
+            removePathWithNotEnoughItems(aPath, modifiedPath);
+        LinkedHashMap<Integer, Section> bestPath = fromModifiedPathFindShortest(modifiedPath);
+        if(!bestPath.isEmpty())
+            System.out.println(printPath(bestPath));
+        else
+            System.out.println("There's no existing path!");
+    }
+
+    private String printPath(LinkedHashMap<Integer, Section> bestPath)
+    {
+        //for(int i = 0; i < bestPath.size(); i++)
+        return "";
+    }
+
+    private LinkedHashMap<Integer, Section> fromModifiedPathFindShortest(HashSet<LinkedHashMap<Integer, Section>> modifiedPath)
+    {
+        int minLength = (int)Double.POSITIVE_INFINITY;
+        LinkedHashMap<Integer, Section> minPath = new LinkedHashMap<>();
+        for(LinkedHashMap<Integer, Section> aPath : modifiedPath)
+            if (minLength > getLength(aPath))
+                minPath = aPath;
+        return minPath;
+    }
+
+    private int getLength(LinkedHashMap<Integer, Section> aPath)
+    {
+        int length = 0;
+        for(int i = 0; i < aPath.size() - 1; i++)
+            length += aPath.get(i).getDistance(aPath.get(i+1).getSectionNumber_());
+        return length;
+    }
+
+    private void removePathWithNotEnoughItems(LinkedHashMap<Integer, Section> aPath,
+                                              HashSet<LinkedHashMap<Integer, Section>> modifiedPaths)
+    {
+        int pathNumberOfA = 0, pathNumberOfB = 0, pathNumberOfC = 0;
+        Section currentSection;
+        for(int i = 0; i < aPath.size(); i++)
+        {
+            currentSection = aPath.get(i);
+            pathNumberOfA += currentSection.getNumberOfObjectsA();
+            pathNumberOfB += currentSection.getNumberOfObjectsB();
+            pathNumberOfC += currentSection.getNumberOfObjectsC();
+        }
+        if(pathNumberOfA >= numberA && pathNumberOfB >= numberB && pathNumberOfC >= numberC)
+            modifiedPaths.add(aPath);
     }
 
     /**
@@ -54,10 +104,21 @@ public class RouteAlgorithm
         return null;
     }
 
-    private void findAllPath()
+    private HashSet<LinkedHashMap<Integer, Section>> findAllPath()
     {
-        Dijkstra algorithm = new Dijkstra(sections);
-        //for()
+        PrintStream console = System.out; // Store current stream in console
+        AllPath path = new AllPath(sections);
+        Section root = findSection(0);
+        Iterator it = root.getDistances().entrySet().iterator();
+        while (it.hasNext())
+        {
+            Map.Entry pair = (Map.Entry)it.next();
+            it.remove(); // avoids a ConcurrentModificationException
+            path.printAllPaths(0, (Integer) pair.getKey());
+        }
+        System.setOut(console); // Restore current stream
+        ReadPaths pathReader = new ReadPaths(sections);
+        return pathReader.getAllPath();
     }
 
     private void removeSection(int toRemove)
@@ -84,5 +145,16 @@ public class RouteAlgorithm
 
 
         return "";
+    }
+
+    public static void main(String[] args) {
+        ReadFileLogic readFile = new ReadFileLogic();
+        ReadPaths read = new ReadPaths(readFile.getSectionsInFile());
+        Order ord = new Order();
+        ord.takeOrder("Object A", 2);
+        ord.takeOrder("Object B", 2);
+        ord.takeOrder("Object C", 5);
+        RouteAlgorithm route = new RouteAlgorithm(readFile.getSectionsInFile(), ord.getNumberOfA(),
+                ord.getNumberOfB(), ord.getNumberOfC());
     }
 }

@@ -84,6 +84,9 @@ public class Menu {
         return option;
     }
 
+    /**
+     * Created an order from user's input
+     */
     private void takeOrder()
     {
         System.out.println("Object A amount : ");
@@ -102,6 +105,9 @@ public class Menu {
         order.takeOrder(objectC.getName(), amountC.nextInt());
     }
 
+    /**
+     * Displays the order (if created before) or an error!
+     */
     private void displayOrder()
     {
         if(order.getNumberOfA() == -1)
@@ -139,7 +145,6 @@ public class Menu {
 
     private void findShortestPath()
     {
-       // Dijkstra dij = new Dijkstra(sectionsInFile);
         //dij.runDijkstra(0,0);
         RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
                 order.getNumberOfB(), order.getNumberOfC());

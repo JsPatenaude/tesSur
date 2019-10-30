@@ -5,57 +5,23 @@ import com.transportObject.TransportObject;
 import com.transportObject.TransportObjectA;
 import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
-
-import java.rmi.UnexpectedException;
 import java.util.LinkedHashMap;
 import java.util.Vector;
 
 public abstract class Robot {
 
-    protected int maxWeight = 0;
-    protected int currentWeight = 0;
-    protected double k;
-    Vector<TransportObject> baggage = new Vector<TransportObject>();
+    int maxWeight = 0;
+    int currentWeight = 0;
+    double k;
+    private Vector<TransportObject> baggage = new Vector<>();
 
     /**
-     * Checks if an object can be added to a robot
-     * @param weightToAdd weight of the object to be added
-     * @return if the object can be added without exceeding the limit
+     * Function to evaluate the time taken by a Robot to go through a path and pick the requested items
+     * @param pickUps container indicating for sections 1 to bestPath.size what object to pick in each section
+     * @param bestPath path the robot should take, containing the ordered sections to visit
+     * @param order user's order (numbers of A, B and C)
+     * @return the time take by a path (if the robot can complete it ) else infinity
      */
-    private boolean canAddObject(int weightToAdd) { return (currentWeight + weightToAdd) <= maxWeight; }
-
-    /**
-     * Adds an object to a robot's transportation list
-     * @param toAdd object to be added to the list
-     */
-    public void addBaggage(TransportObject toAdd)
-    {
-        if(toAdd != null)
-        {
-            if (canAddObject(toAdd.getWeight()))
-            {
-                baggage.add(toAdd);
-                currentWeight += toAdd.getWeight();
-                updateK();
-            }
-            else
-                throw new UnsupportedOperationException();
-        }
-    }
-
-    /**
-     * Find the estimated time the robot will take to travel a certain distance
-     * @param distance distance for which the time will be evaluated
-     * @return The time that will be taken
-     */
-    public double findETA(double distance) { return distance * k; }
-
-    /**
-     * Getter for the robot's current speed
-     * @return Current speed of the robot with the current load
-     */
-    public double getK() { return k; }
-
     public int findPathTime(LinkedHashMap<Integer, Order> pickUps, LinkedHashMap<Integer, Section> bestPath, Order order)
     {
         int time = 0;
@@ -80,6 +46,39 @@ public abstract class Robot {
     }
 
     /**
+     * Find the estimated time the robot will take to travel a certain distance
+     * @param distance distance for which the time will be evaluated
+     * @return The time that will be taken
+     */
+    private double findETA(double distance) { return distance * k; }
+
+    /**
+     * Adds an object to a robot's transportation list
+     * @param toAdd object to be added to the list
+     */
+    private void addBaggage(TransportObject toAdd)
+    {
+        if(toAdd != null)
+        {
+            if (canAddObject(toAdd.getWeight()))
+            {
+                baggage.add(toAdd);
+                currentWeight += toAdd.getWeight();
+                updateK();
+            }
+            else
+                throw new UnsupportedOperationException();
+        }
+    }
+
+    /**
+     * Checks if an object can be added to a robot
+     * @param weightToAdd weight of the object to be added
+     * @return if the object can be added without exceeding the limit
+     */
+    private boolean canAddObject(int weightToAdd) { return (currentWeight + weightToAdd) <= maxWeight; }
+
+    /**
      * Abstract function (should be defined for each child class), to calculate the speed depending
      *      on the current load's weight
      */
@@ -89,4 +88,5 @@ public abstract class Robot {
      * Abstract function (should be defined for each child class), to get the robot's name
      */
     public abstract String getName();
+
 }

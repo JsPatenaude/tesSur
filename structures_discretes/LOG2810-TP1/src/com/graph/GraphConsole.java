@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class GraphConsole {
 
-    private HashSet<Section> sectionsInFile = new HashSet<>();
+    private HashSet<Section> sectionsInFile;
 
     /**
      * Constructor of a graphic.

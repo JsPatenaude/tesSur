@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.*;
 
-public class AllPath
+class AllPath
 {
     private int numberOfVertices;
     private ArrayList<Integer>[] adjacencyList;
@@ -18,7 +18,7 @@ public class AllPath
      * Constructor, converts a section to it's own definition of graph
      * @param sections sections container to be written in the graph
      */
-    public AllPath(HashSet<Section> sections)
+    AllPath(HashSet<Section> sections)
     {
         numberOfVertices = sections.size();
         initializeAdjacencyList();
@@ -55,19 +55,18 @@ public class AllPath
      * @param origin origin vertex
      * @param destination destination vertex
      */
-    public void addEdge(int origin, int destination) { adjacencyList[origin].add(destination); }
+    private void addEdge(int origin, int destination) { adjacencyList[origin].add(destination); }
 
     /**
-     * Function that prints all paths between 2 vertices
-     * @param origin origin vertex
+     * Function that prints all paths between the root(at index 0) and a vertex
      * @param destination destination vertex
      */
-    public void printAllPaths(int origin, int destination)
+    void printAllPaths(int destination)
     {
         boolean[] isVisited = new boolean[numberOfVertices];
         ArrayList<Integer> pathList = new ArrayList<>();
-        pathList.add(origin);
-        printAllPathsUtil(origin, destination, isVisited, pathList);
+        pathList.add(0);
+        printAllPathsUtil(0, destination, isVisited, pathList);
     }
 
     /**
@@ -113,16 +112,5 @@ public class AllPath
             newPath.addAll(reversed);
             System.out.println(newPath);
         }
-    }
-
-    /**
-     * Function to create the reverse path.
-     * @param localPathList to be reversed
-     * @return reversed list
-     */
-    private List<Integer> createReversePath(List<Integer> localPathList)
-    {
-        Collections.reverse(localPathList);
-        return localPathList;
     }
 } 

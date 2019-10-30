@@ -3,7 +3,7 @@ package com.robot;
 public class RobotX extends Robot
 {
     /**
-     * Constructor of a robot type X
+     * Constructor of a robot type X, sets the maximum weight and the initial value of K
      */
     public RobotX()
     {
@@ -11,6 +11,10 @@ public class RobotX extends Robot
         k = 1;
     }
 
+    /**
+     * Getter for the max weight that X can carry
+     * @return max weight that can be carried (5kg here)
+     */
     static public int getMaxWeight() { return 5; }
 
     /**

@@ -2,14 +2,14 @@ package com.sections;
 
 import java.util.*;
 
-public class Section implements Comparable {
-
-    private int numberObjectA_ = 0;
-    private int numberObjectB_ = 0;
-    private int numberObjectC_ = 0;
-    private Integer sectionNumber_ = 0;
+public class Section
+{
+    private int numberObjectA_;
+    private int numberObjectB_;
+    private int numberObjectC_;
+    private Integer sectionNumber_;
     private boolean visited_   = false;
-    private HashMap<Integer, Integer> distances_ = new HashMap<Integer, Integer>();
+    private HashMap<Integer, Integer> distances_ = new HashMap<>();
 
     /**
      * Constructor of a section
@@ -30,15 +30,7 @@ public class Section implements Comparable {
      * Getter for the distances between nodes
      * @return section's distances with other nodes
      */
-    public HashMap<Integer, Integer> getDistances() { return new HashMap<Integer, Integer>(distances_); }
-
-    /**
-     * Overloading of the equals function to compare 2 Sections, here 2 sections are equal if they have
-     *  the same number
-     * @param comparable Section to be compared to
-     * @return True if they have the same section number, else false
-     */
-    public boolean equals(Section comparable) { return sectionNumber_.equals(comparable); }
+    public HashMap<Integer, Integer> getDistances() { return new HashMap<>(distances_); }
 
     /**
      * Getter for the section's number
@@ -99,20 +91,5 @@ public class Section implements Comparable {
     {
         Integer distance = distances_.get(toNode);
         return  distance != null ? distance : -1;
-    }
-
-    @Override
-    /**
-     * Function essential to implement comparable, compares 2 sections with their number
-     * @param o section to be compared to
-     * @return 0 is equal, 1 is this > 0 else -1
-     */
-    public int compareTo(Object o) {
-        Section argument = (Section)o;
-        if(sectionNumber_ > argument.sectionNumber_)
-            return 1;
-        if(sectionNumber_ < argument.sectionNumber_)
-            return -1;
-        return 0;
     }
 }

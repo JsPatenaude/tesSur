@@ -12,29 +12,29 @@ public class ReadFileLogic {
     private HashSet<Section> sectionsInFile;
     private String line;
 
+    /**
+     * Constructor, reads data from the file
+     */
     public ReadFileLogic()
     {
-        sectionsInFile = new HashSet<Section>();
-        readFile("entrepot.txt");
+        sectionsInFile = new HashSet<>();
+        readFile();
     }
 
     /**
-     * Function to read data from a filee
-     * @param filePath path to the file to be read from
+     * Function to read data from a file
      */
-    private boolean readFile(String filePath)
+    private void readFile()
     {
         BufferedReader inputFileBuffer;
         try {
-            inputFileBuffer = new BufferedReader(new FileReader(filePath));
+            inputFileBuffer = new BufferedReader(new FileReader("entrepot.txt"));
             line = inputFileBuffer.readLine();
             readSections(inputFileBuffer);
             readDistances(inputFileBuffer);
-            return true;
         } catch (IOException error) {
             error.printStackTrace();
             System.out.println("Error Warehouse's file could not be opened.");
-            return false;
         }
     }
 
@@ -47,7 +47,6 @@ public class ReadFileLogic {
     /**
      * Read the sections with their information from a Buffer and store them in a set
      * @param inputFileBuffer BufferReader from where the info should be read
-     * @return void
      */
     private void readSections(BufferedReader inputFileBuffer) throws IOException
     {
@@ -66,7 +65,6 @@ public class ReadFileLogic {
     /**
      * Read the distances between sections from a Buffer and store them in a
      * @param inputFileBuffer BufferReader from where the info should be read
-     * @return void
      */
     private void readDistances(BufferedReader inputFileBuffer) throws IOException
     {
@@ -98,6 +96,6 @@ public class ReadFileLogic {
         int commaIndex = line.indexOf(',');
         Integer number = commaIndex != -1 ? Integer.parseInt(line.substring(0, commaIndex)) : Integer.parseInt(line.substring(0));
         line = line.substring(commaIndex + 1);
-        return number.intValue();
+        return number;
     }
 }

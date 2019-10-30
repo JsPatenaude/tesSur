@@ -22,7 +22,7 @@ public class ReadPaths
     {
         sections = sectionsFromFile;
         root = findSection(0);
-        paths = new HashSet<LinkedHashMap<Integer, Section>>();
+        paths = new HashSet<>();
         BufferedReader inputFileBuffer;
         String line;
         try {

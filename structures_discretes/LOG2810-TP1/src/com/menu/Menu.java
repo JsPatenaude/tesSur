@@ -2,10 +2,8 @@ package com.menu;
 
 import com.file.ReadFileLogic;
 import com.graph.GraphConsole;
-import com.route.Dijkstra;
 import com.route.RouteAlgorithm;
 import com.sections.Section;
-import com.transportObject.TransportObject;
 import com.transportObject.TransportObjectA;
 import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
@@ -19,7 +17,10 @@ public class Menu {
     private Order order = new Order();
     private HashSet<Section> sectionsInFile = new HashSet<>();
 
-    public Menu()
+    /**
+     * Constructor, asks user for a menu choice until the user quits.
+     */
+    private Menu()
     {
         int choice = getUserChoice();
         while(choice != 0)
@@ -78,11 +79,7 @@ public class Menu {
      * Get the user's menu choice, and treat errors
      * @return What the user chooses
      */
-    private int getUserChoice()
-    {
-        int option = printOptions();
-        return option;
-    }
+    private int getUserChoice() { return printOptions(); }
 
     /**
      * Created an order from user's input
@@ -90,19 +87,16 @@ public class Menu {
     private void takeOrder()
     {
         System.out.println("Object A amount : ");
-        TransportObjectA objectA = new TransportObjectA();
         Scanner amountA = new Scanner(System.in);
-        order.takeOrder(objectA.getName(), amountA.nextInt());
+        order.takeOrder(TransportObjectA.getName(), amountA.nextInt());
 
         System.out.println("Object B amount : ");
-        TransportObjectB objectB = new TransportObjectB();
         Scanner amountB = new Scanner(System.in);
-        order.takeOrder(objectB.getName(), amountB.nextInt());
+        order.takeOrder(TransportObjectB.getName(), amountB.nextInt());
 
         System.out.println("Object C amount : ");
-        TransportObjectC objectC = new TransportObjectC();
         Scanner amountC = new Scanner(System.in);
-        order.takeOrder(objectC.getName(), amountC.nextInt());
+        order.takeOrder(TransportObjectC.getName(), amountC.nextInt());
     }
 
     /**
@@ -143,11 +137,24 @@ public class Menu {
             System.out.println("File read and graph created successfully!");
     }
 
+    /**
+     * Finds the shortest path to complete the user's order
+     */
     private void findShortestPath()
     {
-        //dij.runDijkstra(0,0);
-        RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
-                order.getNumberOfB(), order.getNumberOfC());
+        if(sectionsInFile.isEmpty())
+            System.out.println("Please Create the graph first");
+        else
+        {
+            RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
+                    order.getNumberOfB(), order.getNumberOfC());
+            if (order.getNumberOfA() != 0 || order.getNumberOfB() != 0 || order.getNumberOfC() == 0)
+                route.displayBestRoute();
+        }
     }
 
+    public static void main(String[] args)
+    {
+        new Menu();
+    }
 }

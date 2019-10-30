@@ -1,6 +1,5 @@
 package com.route;
 
-import com.file.ReadFileLogic;
 import com.file.ReadPaths;
 import com.menu.Order;
 import com.robot.Robot;
@@ -12,6 +11,7 @@ import com.transportObject.TransportObjectA;
 import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
 
+import javax.swing.plaf.metal.MetalIconFactory;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -22,74 +22,83 @@ public class RouteAlgorithm
     private int numberB;
     private int numberC;
 
+    /**
+     * Constructor assigns attributes to the parameter's values
+     * @param sectionsFromFile contains the sections read from the file
+     * @param numberOfA number of objects A contained in the order
+     * @param numberOfB number of objects B contained in the order
+     * @param numberOfC number of objects C contained in the order
+     */
     public RouteAlgorithm(HashSet<Section> sectionsFromFile, int numberOfA, int numberOfB, int numberOfC)
     {
         sections = sectionsFromFile;
         numberA = numberOfA;
         numberB = numberOfB;
         numberC = numberOfC;
-        displayBestRoute();
     }
 
-    public boolean displayBestRoute()
+    /**
+     * Finds the best route by calling other functions
+     */
+    public void displayBestRoute()
     {
         System.out.println();
         try {
             LinkedHashMap<Integer, Section> bestPath = getBestRoute();
             LinkedHashMap<Integer, Order> pickUps = findHowToPickObjects(bestPath);
-            System.out.println(bestPath);
-            System.out.println("Robot utilisé: ");
+            System.out.println(printPathAndPickups(bestPath, pickUps));
+            System.out.print("Robot utilisé: ");
             int time = findRobotType(pickUps, bestPath);
-            System.out.println("Temps: " + time);
-            return true;
-        } catch (NoSuchElementException error) { return false; }
+            System.out.println("Temps: " + time + "s");
+        } catch (NoSuchElementException error) { System.out.println("Sorry an error occurred try again!"); }
     }
 
+    /**
+     * Finds how to pick the object to minimise the path's time of completion
+     * @param path path to optimize
+     * @return contains for each section (1 to path.size - 1) a list of items to be picked
+     */
     private LinkedHashMap<Integer, Order> findHowToPickObjects(LinkedHashMap<Integer, Section> path)
     {
-        int pathNumberOfA = 0, pathNumberOfB = 0, pathNumberOfC = 0;
+        int pathNumberOfA = 0, pathNumberOfB = 0, pathNumberOfC = 0, howMuch;
         Section currentSection;
         Order currentOrder;
-        String result = "";
-        int howMuch;
         LinkedHashMap<Integer, Order> fromEachSection = new LinkedHashMap<>();
         for(int pick = path.size() - 1; pick >= 0; pick--)
         {
             currentSection = path.get(pick);
             currentOrder = new Order();
-            result += "From " + currentSection.getSectionNumber_();
             if(pathNumberOfA < numberA && !currentSection.hasBeenVisited())
             {
                 howMuch = findHowMuchFrom(currentSection.getNumberOfObjectsA(), pathNumberOfA, numberA);
                 pathNumberOfA += howMuch;
                 currentOrder.takeOrder("Object A", howMuch);
-                result += " A: " + howMuch;
             }
-            else result += " A: 0";
             if(pathNumberOfB < numberB && !currentSection.hasBeenVisited())
             {
                 howMuch = findHowMuchFrom(currentSection.getNumberOfObjectsB(), pathNumberOfB, numberB);
                 pathNumberOfB += howMuch;
                 currentOrder.takeOrder("Object B", howMuch);
-                result += ", B: " + howMuch;
             }
-            else result += ", B: 0";
             if(pathNumberOfC < numberC && !currentSection.hasBeenVisited())
             {
                 howMuch = findHowMuchFrom(currentSection.getNumberOfObjectsC(), pathNumberOfC, numberC);
                 pathNumberOfC += howMuch;
                 currentOrder.takeOrder("Object C", howMuch);
-                result += ", C: " + howMuch;
             }
-            else result += ", C: 0";
-            result += "\n";
             fromEachSection.put(pick, currentOrder);
             currentSection.visit();
         }
-        System.out.println(result);
         return fromEachSection;
     }
 
+    /**
+     * Finds how much items should be picked from a section
+     * @param contains number of items contained in the section
+     * @param current number of items currently in the robot's carry
+     * @param limit number of items that the order contains
+     * @return number of items to be picked
+     */
     private int findHowMuchFrom(int contains, int current, int limit)
     {
         if(contains + current <= limit)
@@ -98,29 +107,19 @@ public class RouteAlgorithm
             return limit - current;
     }
 
-    private boolean pathIsSymmetric(LinkedHashMap<Integer, Section> path)
-    {
-        String path1 = "", path2 = "";
-        for(int i = 0; i < path.size(); i++)
-        {
-            if(i <= path.size() / 2)
-                path1 += path.get(i).getSectionNumber_();
-            else
-                path2 += path.get(i).getSectionNumber_();
-        }
-        return path1.equals(path2);
-    }
-
+    /**
+     * Finds the best path
+     * @return best path
+     * @exception NoSuchElementException thrown if no path fits the requirements
+     */
     private LinkedHashMap<Integer, Section> getBestRoute()
     {
         HashSet<LinkedHashMap<Integer, Section>> allPaths = findAllPath();
-        HashSet<LinkedHashMap<Integer, Section>> modifiedPath = new HashSet<LinkedHashMap<Integer, Section>>();
+        HashSet<LinkedHashMap<Integer, Section>> modifiedPath = new HashSet<>();
         for(LinkedHashMap<Integer, Section> aPath : allPaths)
             removePathWithNotEnoughItems(aPath, modifiedPath); // Not working
         LinkedHashMap<Integer, Section> bestPath = fromModifiedPathFindShortest(modifiedPath);
-        if(!bestPath.isEmpty())
-            System.out.println("Best path is: "+ printPath(bestPath));
-        else
+        if(bestPath.isEmpty())
         {
             System.out.println("There's no existing path!");
             throw new NoSuchElementException();
@@ -128,20 +127,45 @@ public class RouteAlgorithm
         return bestPath;
     }
 
-    private String printPath(LinkedHashMap<Integer, Section> bestPath)
+    /**
+     * Function, to print a path
+     * @param bestPath path to be printed
+     * @return string path built
+     */
+    private String printPathAndPickups(LinkedHashMap<Integer, Section> bestPath, LinkedHashMap<Integer, Order> pickUps)
     {
-        String path = "[";
-        for(int i = 0; i < bestPath.size(); i++)
-            path += bestPath.get(i).getSectionNumber_() + ", ";
-        StringBuilder builder = new StringBuilder(path);
-        builder.setCharAt(path.length() - 2, ']');
-        path = builder.toString();
-        return path;
+        String separator = "\n    ==> \n";
+        StringBuilder path = new StringBuilder();
+        for(int i = 0; i < bestPath.size() - 1; i++)
+            path.append("Section " + bestPath.get(i).getSectionNumber_()).append(printPickups(pickUps.get(i))).append(separator);
+        path.append("Section " + bestPath.get(bestPath.size()-1).getSectionNumber_()).append(printPickups(pickUps.get(bestPath.size()-1)));
+        path.append("\n");
+        return path.toString();
     }
 
+    private String printPickups(Order currentOrder)
+    {
+        StringBuilder pickupsString = new StringBuilder();
+        if(currentOrder.getNumberOfA() != 0 || currentOrder.getNumberOfB() != 0 || currentOrder.getNumberOfC() !=0)
+        {
+            if(currentOrder.getNumberOfA() != 0)
+                pickupsString.append(" Object A: " + currentOrder.getNumberOfA() + " ");
+            if(currentOrder.getNumberOfB() != 0)
+                pickupsString.append(" Object B: " + currentOrder.getNumberOfB() + " ");
+            if(currentOrder.getNumberOfC() != 0)
+                pickupsString.append(" Object C: " + currentOrder.getNumberOfC() + " ");
+        }
+        return pickupsString.toString();
+    }
+
+    /**
+     * Finds the shortest path in a set of path
+     * @param modifiedPath set of path containing all the path
+     * @return The shortest path in the set
+     */
     private LinkedHashMap<Integer, Section> fromModifiedPathFindShortest(HashSet<LinkedHashMap<Integer, Section>> modifiedPath)
     {
-        int minLength = (int)Double.POSITIVE_INFINITY, currentPathLength = (int)Double.POSITIVE_INFINITY;
+        int minLength = (int)Double.POSITIVE_INFINITY, currentPathLength;
         LinkedHashMap<Integer, Section> minPath = new LinkedHashMap<>();
         for(LinkedHashMap<Integer, Section> aPath : modifiedPath)
         {
@@ -155,6 +179,12 @@ public class RouteAlgorithm
         return minPath;
     }
 
+    /**
+     * Function to find the length of a path
+     * @param aPath path to be evaluated
+     * @param minLength if aPath's length becomes bigger than the minimum then we break
+     * @return length of the path, (or part of it, if we break before completion)
+     */
     private int getLength(LinkedHashMap<Integer, Section> aPath, int minLength)
     {
         int length = 0;
@@ -167,6 +197,12 @@ public class RouteAlgorithm
         return length;
     }
 
+    /**
+     * Function to evaluate a path and stores it in a container, at least the number of requested objects from
+     *      each type
+     * @param aPath path to be evaluated
+     * @param modifiedPaths contains all the path that fit the requirements
+     */
     private void removePathWithNotEnoughItems(LinkedHashMap<Integer, Section> aPath,
                                               HashSet<LinkedHashMap<Integer, Section>> modifiedPaths)
     {
@@ -188,6 +224,9 @@ public class RouteAlgorithm
             modifiedPaths.add(aPath);
     }
 
+    /**
+     * Reset all the sections to not visited
+     */
     private void resetVisited()
     {
         for(Section element : sections)
@@ -195,46 +234,48 @@ public class RouteAlgorithm
     }
 
     /**
-     * Finds the a section in the section HashSet
-     * @param sectionNumber section number to be found
-     * @return The section requested
+     * Finds the root in the section HashSet
+     * @return root section
      */
-    private Section findSection(int sectionNumber)
+    private Section findRoot()
     {
         for(Section element: sections)
-            if(element.getSectionNumber_().equals(sectionNumber))
+            if(element.getSectionNumber_().equals(0))
                 return element;
         return null;
     }
 
+    /**
+     * Function to find all possible path from 0 back to itself
+     * @return container containing all the possible paths
+     */
     private HashSet<LinkedHashMap<Integer, Section>> findAllPath()
     {
         PrintStream console = System.out; // Store current stream in console
         AllPath path = new AllPath(sections);
-        Section root = findSection(0);
-        Iterator it = root.getDistances().entrySet().iterator();
-        while (it.hasNext())
+        Section root = findRoot();
+        assert root != null;
+        HashMap<Integer, Integer> distances = root.getDistances();
+        if(distances != null)
         {
-            Map.Entry pair = (Map.Entry)it.next();
-            it.remove(); // avoids a ConcurrentModificationException
-            path.printAllPaths(0, (Integer) pair.getKey());
+            Iterator it = distances.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry) it.next();
+                it.remove(); // avoids a ConcurrentModificationException
+                path.printAllPaths((Integer) pair.getKey());
+            }
         }
         System.setOut(console); // Restore current stream
         ReadPaths pathReader = new ReadPaths(sections);
         return pathReader.getAllPath();
     }
 
-    private void removeSection(int toRemove)
-    {
-        for(Section element : sections)
-        {
-            if(element.getSectionNumber_() == toRemove)
-                sections.remove(element);
-            if(element.getDistances().containsKey(toRemove))
-                element.getDistances().remove(toRemove);
-        }
-    }
-
+    /**
+     * Finds what robot is best to complete a path in the best time
+     * @param pickUps contains for every section what objects to pick (sorted by order of visit)
+     * @param bestPath path that the robot have to follow
+     * @return time taken by the robot (if the task has been completed) or infinity
+     */
     private int findRobotType(LinkedHashMap<Integer, Order> pickUps, LinkedHashMap<Integer, Section> bestPath)
     {
         int totalWeight = numberA * TransportObjectA.weight + numberB * TransportObjectB.weight
@@ -244,18 +285,14 @@ public class RouteAlgorithm
             if(totalWeight > RobotZ.getMaxWeight())
                 System.out.println("No robot can carry that much weight: " + totalWeight + "kg.");
             else
-            {
                 System.out.println("Only Robot C can carry " + totalWeight + "kg.");
-
-            }
         }
         List<Robot> robots = new ArrayList<>();
         robots.add(new RobotX());
         robots.add(new RobotY());
         robots.add(new RobotZ());
         Robot bestRobot = robots.get(0);
-        int bestTime = (int)Double.POSITIVE_INFINITY;
-        int currentTime = 0;
+        int bestTime = (int)Double.POSITIVE_INFINITY, currentTime;
         Order order = new Order();
         order.takeOrder("Object A", numberA);
         order.takeOrder("Object B", numberB);
@@ -271,16 +308,5 @@ public class RouteAlgorithm
         }
         System.out.println(bestRobot.getName());
         return bestTime;
-    }
-
-    public static void main(String[] args) {
-        ReadFileLogic readFile = new ReadFileLogic();
-        ReadPaths read = new ReadPaths(readFile.getSectionsInFile());
-        Order ord = new Order();
-        ord.takeOrder("Object A", 1);
-        ord.takeOrder("Object B", 1);
-        ord.takeOrder("Object C", 1);
-        RouteAlgorithm route = new RouteAlgorithm(readFile.getSectionsInFile(), ord.getNumberOfA(),
-                ord.getNumberOfB(), ord.getNumberOfC());
     }
 }

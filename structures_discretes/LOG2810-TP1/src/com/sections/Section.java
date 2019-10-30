@@ -26,19 +26,6 @@ public class Section implements Comparable {
         numberObjectC_ = numberObjectC;
     }
 
-//    public Section clone()
-//    {
-//        Section clone = new Section(sectionNumber_, numberObjectA_, numberObjectB_, numberObjectC_);
-//        HashMap<Integer, Integer> neighbors = getDistances();
-//        Iterator it = neighbors.entrySet().iterator();
-//        while (it.hasNext()) {
-//            Map.Entry pair = (Map.Entry)it.next();
-//            it.remove(); // avoids a ConcurrentModificationException
-//            clone.addDistance((Integer) pair.getKey(), (Integer) pair.getValue());
-//        }
-//        return clone;
-//    }
-
     /**
      * Getter for the distances between nodes
      * @return section's distances with other nodes
@@ -86,7 +73,12 @@ public class Section implements Comparable {
     /**
      * Sets the visited attribute to true
      */
-    private void visit() { visited_ = true; }
+    public void visit() { visited_ = true; }
+
+    /**
+     * Sets the visited attribute to false
+     */
+    public void unVisit() { visited_ = false; }
 
     /**
      * Adding a distance to a node to the distances map

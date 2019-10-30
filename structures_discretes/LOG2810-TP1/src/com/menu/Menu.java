@@ -110,8 +110,8 @@ public class Menu {
      */
     private void displayOrder()
     {
-        if(order.getNumberOfA() == -1)
-            System.out.println("Please Create the order first");
+        if(order.getNumberOfA() == 0 && order.getNumberOfB() == 0 && order.getNumberOfC() == 0)
+            System.out.println("Your order is empty!");
         else
             order.display();
     }

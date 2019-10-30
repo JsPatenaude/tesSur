@@ -19,7 +19,6 @@ public class Order
     public Order()
     {
         list = new int [3];
-        list[0] = -1;
     }
 
     /**

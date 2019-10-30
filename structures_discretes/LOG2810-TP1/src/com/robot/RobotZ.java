@@ -11,6 +11,8 @@ public class RobotZ extends Robot
         k = 2.5;
     }
 
+    static public int getMaxWeight() { return 25; }
+
     /**
      * Function to update the speed of robot A with the current load's weight
      * @return void
@@ -20,4 +22,10 @@ public class RobotZ extends Robot
     {
         k = 2.5 + 0.2 * currentWeight;
     }
+
+    /**
+     * Getter function of the robot's name
+     */
+    @Override
+    public String getName() { return "Robot Z"; }
 }

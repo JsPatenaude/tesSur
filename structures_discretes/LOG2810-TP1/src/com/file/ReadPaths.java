@@ -62,10 +62,12 @@ public class ReadPaths
         line = line.substring(1);
         int index = line.indexOf(',');
         LinkedHashMap<Integer, Section> path = new LinkedHashMap<>();
+        Integer valueAdded = -1;
         while(index != -1)
         {
             String value = line.substring(0,index);
-            path.put(i++, findSection(Integer.parseInt(value)));
+            valueAdded = Integer.parseInt(value);
+            path.put(i++, findSection(valueAdded));
             if(index + 2 < line.length())
                 line = line.substring(index + 2);
             else
@@ -74,7 +76,8 @@ public class ReadPaths
             if(index == -1)
                 index = line.indexOf(']');
         }
-        path.put(i, root);
+        if(!valueAdded.equals(0))
+            path.put(i, root);
         return path;
     }
 

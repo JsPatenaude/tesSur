@@ -45,8 +45,8 @@ public class Main {
 
     public static void testObjects()
     {
-        System.out.println(TransportObjectA.getName() + " " + TransportObjectA.getWeight());
-        System.out.println(TransportObjectB.getName() + " " + TransportObjectB.getWeight());
-        System.out.println(TransportObjectC.getName() + " " + TransportObjectC.getWeight());
+        System.out.println(TransportObjectA.getName() + " " + TransportObjectA.weight);
+        System.out.println(TransportObjectB.getName() + " " + TransportObjectB.weight);
+        System.out.println(TransportObjectC.getName() + " " + TransportObjectC.weight);
     }
 }

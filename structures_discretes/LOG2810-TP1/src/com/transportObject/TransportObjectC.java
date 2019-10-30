@@ -2,11 +2,14 @@ package com.transportObject;
 
 public class TransportObjectC extends TransportObject
 {
+    public static final int weight = 6;
+
     /**
      * Getter for the object's constant weight
      * @return Object's weight
      */
-    static public int getWeight() { return 6; }
+    @Override
+    public int getWeight() { return weight; }
 
     /**
      * Getter for the object's constant name

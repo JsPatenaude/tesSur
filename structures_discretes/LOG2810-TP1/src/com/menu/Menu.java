@@ -9,6 +9,7 @@ import com.transportObject.TransportObjectB;
 import com.transportObject.TransportObjectC;
 
 import java.util.HashSet;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
@@ -28,7 +29,7 @@ public class Menu {
             switch (choice)
             {
                 default:
-                    System.out.println("Unhandled Error.");
+                    System.out.println("Please enter a valid choice!");
                     break;
                 case 1:
                     System.out.println("----------Create graph----------");
@@ -72,7 +73,14 @@ public class Menu {
         System.out.println("To quit enter 'Q'");
 
         String userInput = inputStream.nextLine();
-        return userInput.equals("Q") ?  0 : Character.getNumericValue(userInput.charAt(0));
+        int input = -1;
+        try {
+            input = Character.getNumericValue(userInput.charAt(0));
+        } catch(StringIndexOutOfBoundsException error) {
+            System.out.println("Enter a valid choice!");
+            input = printOptions();
+        }
+        return userInput.equals("Q") ?  0 : input;
     }
 
     /**
@@ -86,17 +94,46 @@ public class Menu {
      */
     private void takeOrder()
     {
-        System.out.println("Object A amount : ");
-        Scanner amountA = new Scanner(System.in);
-        order.takeOrder(TransportObjectA.getName(), amountA.nextInt());
+        boolean validChoice = false;
+        while(!validChoice)
+        {
+            try {
+                System.out.println("Object A amount : ");
+                Scanner amountA = new Scanner(System.in);
+                order.takeOrder(TransportObjectA.getName(), amountA.nextInt());
+                validChoice = true;
+            } catch (InputMismatchException error) {
+                System.out.println("Enter a valid number!");
+                validChoice = false;
+            }
+        }
 
-        System.out.println("Object B amount : ");
-        Scanner amountB = new Scanner(System.in);
-        order.takeOrder(TransportObjectB.getName(), amountB.nextInt());
-
-        System.out.println("Object C amount : ");
-        Scanner amountC = new Scanner(System.in);
-        order.takeOrder(TransportObjectC.getName(), amountC.nextInt());
+        validChoice = false;
+        while(!validChoice)
+        {
+            try {
+                System.out.println("Object B amount : ");
+                Scanner amountB = new Scanner(System.in);
+                order.takeOrder(TransportObjectB.getName(), amountB.nextInt());
+                validChoice = true;
+            } catch (InputMismatchException error) {
+                System.out.println("Enter a valid number!");
+                validChoice = false;
+            }
+        }
+        validChoice = false;
+        while(!validChoice)
+        {
+            try {
+                System.out.println("Object C amount : ");
+                Scanner amountC = new Scanner(System.in);
+                order.takeOrder(TransportObjectC.getName(), amountC.nextInt());
+                validChoice = true;
+            } catch (InputMismatchException error) {
+                System.out.println("Enter a valid number!");
+                validChoice = false;
+            }
+        }
     }
 
     /**

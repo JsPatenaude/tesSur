@@ -1,13 +1,11 @@
 package transportObject;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ObjectManager
 {
-    HashSet<TransportObjectA> containerA_;
-    HashSet<TransportObjectB> containerB_;
-    HashSet<TransportObjectC> containerC_;
+    private HashSet<TransportObjectB> containerB_;
+    private HashSet<TransportObjectC> containerC_;
+    private HashSet<TransportObjectA> containerA_;
 
     public ObjectManager()
     {
@@ -16,6 +14,10 @@ public class ObjectManager
         containerC_ = new HashSet<>();
     }
 
+    /**
+     * Function to add an object to it's container
+     * @param  toAdd object that should be added
+     */
     public void add(TransportObject toAdd)
     {
         switch (toAdd.type_)
@@ -32,6 +34,11 @@ public class ObjectManager
         }
     }
 
+    /**
+     * Function to find objects using their type
+     * @param  type that we are searching for
+     * @return the container of the type we are searching for
+     */
     public<T extends TransportObject> HashSet<T> findByType(String type)
     {
         switch (type)
@@ -43,7 +50,28 @@ public class ObjectManager
         }
     }
 
-    private static <T extends TransportObject> TransportObject searchInContainer(HashSet<T> container, String code)
+    /**
+     * Function to find objects using their type inside a container
+     * @param container to search inside
+     * @param  type that we are searching for
+     * @return the container of the type we are searching for
+     */
+    public HashSet<TransportObject> findByType(HashSet<TransportObject> container, String type)
+    {
+        HashSet<TransportObject> found = new HashSet<>();
+        for(TransportObject element: container)
+            if(element.type_.equals(type))
+                found.add(element);
+        return found;
+    }
+
+    /**
+     * Function to search for an object with a certain code inside a container
+     * @param container containerA, B or C to search inside
+     * @param code unique hexadecimal code of the object
+     * @return TransportObjectA, B or C
+     */
+    private static <T extends TransportObject> TransportObject findByCodeInContainer(HashSet<T> container, String code)
     {
         for(T element: container)
             if(element.code_.equals(code))
@@ -51,18 +79,50 @@ public class ObjectManager
         return null;
     }
 
+    /**
+     * Function to search all containers and find the object with a certain code
+     * @param code unique hexadecimal code of the object we are searching for
+     * @return object if found, else null
+     */
     public TransportObject findByCode(String code)
     {
-        TransportObject found = searchInContainer(containerA_, code);
+        TransportObject found = findByCodeInContainer(containerA_, code);
         if(found == null)
         {
-            found = searchInContainer(containerB_, code);
+            found = findByCodeInContainer(containerB_, code);
             if(found == null)
-                found = searchInContainer(containerC_, code);
+                found = findByCodeInContainer(containerC_, code);
         }
         return found;
     }
 
+    /**
+     * Function to search for objects with a name inside a container
+     * @param container contains the objects to be searched
+     * @param name name of the objects we are searching for
+     * @return HashSet containing all the object with the required name
+     */
+    public static <T extends TransportObject> HashSet<TransportObject> findByNameInContainer(HashSet<T> container, String name)
+    {
+        HashSet<TransportObject> found = new HashSet<>();
+        for(TransportObject element: container)
+            if(element.name_.substring(0, name.length()).equals(name))
+                found.add(element);
+        return found;
+    }
 
+    /**
+     * Function to search all containers and find the objects with a certain name
+     * @param name name of the objects we are searching for
+     * @return HashSet containing all the object with the required name
+     */
+    public HashSet<TransportObject> findByName(String name)
+    {
+        HashSet<TransportObject> found = new HashSet<>();
+        found.addAll(findByNameInContainer(containerA_, name));
+        found.addAll(findByNameInContainer(containerB_, name));
+        found.addAll(findByNameInContainer(containerC_, name));
+        return found;
+    }
 
 }

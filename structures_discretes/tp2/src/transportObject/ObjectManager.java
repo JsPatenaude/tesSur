@@ -7,6 +7,9 @@ public class ObjectManager
     private HashSet<TransportObjectC> containerC_;
     private HashSet<TransportObjectA> containerA_;
 
+    /**
+     * Constructor of an ObjectManager
+     */
     public ObjectManager()
     {
         containerA_ = new HashSet<>();

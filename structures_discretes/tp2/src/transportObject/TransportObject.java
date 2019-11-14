@@ -7,6 +7,13 @@ public abstract class TransportObject
     protected String name_;
     protected String type_;
 
+    /**
+     * Constructor of a transport object
+     * @param weight of the objects
+     * @param name of the object
+     * @param code unique 6 chars hexadecimal code of an object
+     * @param type among 3 types, A, B or C
+     */
     public TransportObject(int weight, String name, String code, String type)
     {
         weight_ = weight;

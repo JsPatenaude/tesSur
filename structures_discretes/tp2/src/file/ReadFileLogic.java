@@ -60,13 +60,13 @@ public class ReadFileLogic {
             switch (type)
             {
                 case "A" :
-                    objectsInFile.add(new TransportObjectA(name, code, type));
+                    objectsInFile.add(new TransportObjectA(name, code));
                     break;
                 case "B" :
-                    objectsInFile.add(new TransportObjectB(name, code, type));
+                    objectsInFile.add(new TransportObjectB(name, code));
                     break;
                 case "C" :
-                    objectsInFile.add(new TransportObjectC(name, code, type));
+                    objectsInFile.add(new TransportObjectC(name, code));
                     break;
             }
             line = inputFileBuffer.readLine();

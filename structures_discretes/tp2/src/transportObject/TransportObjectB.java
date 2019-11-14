@@ -3,12 +3,17 @@ package transportObject;
 public class TransportObjectB extends TransportObject
 {
     public static final int weight = 3;
+    public static final String type = "B";
 
-    public TransportObjectB(String name, String code, String type)
+    public TransportObjectB(String name, String code)
     {
         super(weight, name, code, type);
     }
 
+    /**
+     * Constructor of a transport object type B from a normal Transport Object
+     * @param object to construct from
+     */
     public TransportObjectB(TransportObject object)
     {
         super(weight, object.getName(), object.getHashCode(), object.getType());

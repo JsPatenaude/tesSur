@@ -7,11 +7,11 @@ public abstract class TransportObject
     protected String name_;
     protected String type_;
 
-    public TransportObject(int weight, String code, String name, String type)
+    public TransportObject(int weight, String name, String code, String type)
     {
         weight_ = weight;
-        code_ = code;
         name_ = name;
+        code_ = code;
         type_ = type;
     }
 

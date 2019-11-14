@@ -32,13 +32,13 @@ public class ObjectManager
         switch (toAdd.type_)
         {
             case "A" :
-                containerA_.add((TransportObjectA) toAdd);
+                containerA_.add(new TransportObjectA(toAdd));
                 break;
             case "B" :
-                containerB_.add((TransportObjectB) toAdd);
+                containerB_.add(new TransportObjectB(toAdd));
                 break;
             case "C" :
-                containerC_.add((TransportObjectC) toAdd);
+                containerC_.add(new TransportObjectC(toAdd));
                 break;
         }
     }

@@ -1,6 +1,9 @@
 package file;//package com.file;
 
 import transportObject.TransportObject;
+import transportObject.TransportObjectA;
+import transportObject.TransportObjectB;
+import transportObject.TransportObjectC;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -51,13 +54,21 @@ public class ReadFileLogic {
     {
         while(line != null && !line.isEmpty())
         {
-            objectsInFile.add(new TransportObject(
-                    0,
-                    getStringAtPosition(),
-                    getStringAtPosition(),
-                    getStringAtPosition()
-            ) {
-            });
+            String name = getStringAtPosition();
+            String code = getStringAtPosition();
+            String type = getStringAtPosition();
+            switch (type)
+            {
+                case "A" :
+                    objectsInFile.add(new TransportObjectA(name, code, type));
+                    break;
+                case "B" :
+                    objectsInFile.add(new TransportObjectB(name, code, type));
+                    break;
+                case "C" :
+                    objectsInFile.add(new TransportObjectC(name, code, type));
+                    break;
+            }
             line = inputFileBuffer.readLine();
         }
     }

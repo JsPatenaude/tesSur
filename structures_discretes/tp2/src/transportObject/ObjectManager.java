@@ -14,6 +14,15 @@ public class ObjectManager
         containerC_ = new HashSet<>();
     }
 
+    public HashSet<TransportObject> getElements()
+    {
+        HashSet<TransportObject> contains = new HashSet<>();
+        contains.addAll(containerA_);
+        contains.addAll(containerB_);
+        contains.addAll(containerC_);
+        return contains;
+    }
+
     /**
      * Function to add an object to it's container
      * @param  toAdd object that should be added
@@ -71,12 +80,26 @@ public class ObjectManager
      * @param code unique hexadecimal code of the object
      * @return TransportObjectA, B or C
      */
-    private static <T extends TransportObject> TransportObject findByCodeInContainer(HashSet<T> container, String code)
+    private static <T extends TransportObject> TransportObject findByCodeInContainerPrivate(HashSet<T> container, String code)
     {
         for(T element: container)
             if(element.code_.equals(code))
                 return element;
         return null;
+    }
+
+    /**
+     * Function to search a certain container and find all objects which code starts with a certain sequence
+     * @param code beginning of the code's sequence
+     * @return List containing all the found objects
+     */
+    public HashSet<TransportObject> findByCodeInContainer(HashSet<TransportObject> container, String code)
+    {
+        HashSet<TransportObject> found = new HashSet<>();
+        for(TransportObject element: container)
+            if(element.code_.substring(0, code.length()).equals(code))
+                found.add(element);
+        return found;
     }
 
     /**
@@ -86,12 +109,12 @@ public class ObjectManager
      */
     public TransportObject findByCode(String code)
     {
-        TransportObject found = findByCodeInContainer(containerA_, code);
+        TransportObject found = findByCodeInContainerPrivate(containerA_, code);
         if(found == null)
         {
-            found = findByCodeInContainer(containerB_, code);
+            found = findByCodeInContainerPrivate(containerB_, code);
             if(found == null)
-                found = findByCodeInContainer(containerC_, code);
+                found = findByCodeInContainerPrivate(containerC_, code);
         }
         return found;
     }

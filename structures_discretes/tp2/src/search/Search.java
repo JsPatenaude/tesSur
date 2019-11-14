@@ -18,12 +18,14 @@ public class Search
 
     public boolean exists(Criteria criteria)
     {
-        if(criteria.multipleObjectsCanMatch())
+        if(criteria.getCode().length() < 5)
         {
-            if(criteria.getType() != null)
-                found_.addAll(inventory_.findByType(criteria.getType()));
-            if(criteria.getName() != null)
-                found_.addAll(inventory_.findByNameInContainer(found_, criteria.getName()));
+            if(criteria.getCode() != null)
+            {
+                found_.addAll(inventory_.findByCodeInContainer(inventory_.getElements(), criteria.getCode()));
+            }
+
+
         }
         else
             found_.add(inventory_.findByCode(criteria.getCode()));
@@ -31,4 +33,11 @@ public class Search
     }
 
     public HashSet<TransportObject> getResults() { return found_; }
+
+    public void printResults()
+    {
+        System.out.println("There are " + found_.size() + " objects that fit the requirements:");
+        for(TransportObject element: found_)
+            System.out.println("   " );
+    }
 }

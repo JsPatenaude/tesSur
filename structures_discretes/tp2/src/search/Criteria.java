@@ -28,8 +28,4 @@ public class Criteria
 
     public String getName() { return name_; }
 
-    public boolean multipleObjectsCanMatch() { return code_ == null ? true : false; }
-
-    public boolean multipleCriteria() { return type_ != null && name_ != null; }
-
 }

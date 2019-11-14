@@ -176,13 +176,6 @@ public class Menu {
             System.out.println("Sorry!! There was a problem with the initiation of the program :(");
         else
             System.out.println("File read and successfully!");
-
-        ObjectManager manager = new ObjectManager();
-        for(TransportObject element: objectsInFile)
-            manager.add(element);
-
-        TransportObject find = manager.findByCode("B26A49");
-        System.out.println(find.getName() + " " + find.getType());
     }
 
     /**

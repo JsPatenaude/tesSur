@@ -14,6 +14,10 @@ public class ObjectManager
         containerC_ = new HashSet<>();
     }
 
+    /**
+     * Function to get all the objects from all types
+     * @return HashSet containing all the objects
+     */
     public HashSet<TransportObject> getElements()
     {
         HashSet<TransportObject> contains = new HashSet<>();

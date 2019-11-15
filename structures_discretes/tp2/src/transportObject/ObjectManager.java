@@ -72,7 +72,7 @@ public class ObjectManager
      * @param  type that we are searching for
      * @return the container of the type we are searching for
      */
-    public HashSet<TransportObject> findByType(HashSet<TransportObject> container, String type)
+    public HashSet<TransportObject> findByTypeInContainer(HashSet<TransportObject> container, String type)
     {
         HashSet<TransportObject> found = new HashSet<>();
         for(TransportObject element: container)

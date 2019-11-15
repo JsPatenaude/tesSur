@@ -1,5 +1,7 @@
 package menu;
 import file.ReadFileLogic;
+import search.Criteria;
+import search.Search;
 import transportObject.ObjectManager;
 import transportObject.TransportObject;
 
@@ -9,6 +11,7 @@ import java.util.Scanner;
 public class Menu {
     private Scanner inputStream = new Scanner(System.in);
     private HashSet<TransportObject> objectsInFile = new HashSet<>();
+    private ObjectManager manager = new ObjectManager();
 
     /**
      * Constructor, asks user for a menu choice until the user quits.
@@ -149,15 +152,48 @@ public class Menu {
      */
     private void displaySearch()
     {
-//        if(sectionsInFile.isEmpty())
-//            System.out.println("Please initiate the program first");
-//        else
-//        {
-//            //display max 10 first objects
-//
-////            GraphConsole graphOutput = new GraphConsole(sectionsInFile);
-////            graphOutput.display();
-//        }
+        System.out.println("Enter a type A, B or C (anything else will be considered as an empty field)");
+        String type = "";
+        String userInput = inputStream.nextLine();
+        try {
+            type = userInput.substring(0,1).toUpperCase();
+            if(!type.equals("A") && !type.equals("B") && !type.equals("C"))
+                type = null;
+        } catch(StringIndexOutOfBoundsException error) {
+            System.out.println("Error in type");
+        }
+
+        System.out.println("Enter a type a name: (enter to skip)");
+        String name = "";
+        userInput = inputStream.nextLine();
+        try {
+            name = userInput;
+        } catch(StringIndexOutOfBoundsException error) {
+            System.out.println("Error in name");
+        }
+
+
+        String code = "";
+        boolean ok = false;
+        while(!ok)
+        {
+            System.out.println("Enter a type a code: (Enter to skip) ");
+            userInput = inputStream.nextLine();
+            try {
+                code = userInput;
+                if (code.length() <= 5)
+                    ok = true;
+            } catch (StringIndexOutOfBoundsException error) {
+                System.out.println("Error in code");
+            }
+        }
+
+        Criteria userCriteria = new Criteria(name, code, type);
+        Search search = new Search(manager);
+        if(search.exists(userCriteria))
+            search.printResults();
+        else
+            System.out.println("Sorry there are not results for your search :(");
     }
 
     /**
@@ -175,7 +211,11 @@ public class Menu {
         if(objectsInFile.isEmpty())
             System.out.println("Sorry!! There was a problem with the initiation of the program :(");
         else
+        {
             System.out.println("File read and successfully!");
+            for(TransportObject element: objectsInFile)
+                manager.add(element);
+        }
     }
 
     /**

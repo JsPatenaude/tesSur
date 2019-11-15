@@ -48,4 +48,22 @@ public class Criteria
      */
     public String getName() { return name_; }
 
+    /**
+     * Function to know if the criteria's type is set
+     * @return true if set, false else
+     */
+    public boolean hasType() { return type_.equals("A") || type_.equals("B") || type_.equals("C"); }
+
+    /**
+     * Function to know if the criteria's name is set
+     * @return true if set, false else
+     */
+    public boolean hasName() { return !name_.equals(""); }
+
+    /**
+     * Function to know if the criteria's code is set
+     * @return true if set, false else
+     */
+    public boolean hasCode() { return !code_.equals(""); }
+
 }

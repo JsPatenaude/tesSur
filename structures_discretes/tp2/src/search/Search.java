@@ -28,12 +28,25 @@ public class Search
     {
         if(criteria.getCode().length() < 5)
         {
-            if(criteria.getCode() != null)
+            if(criteria.hasCode())
             {
                 found_.addAll(inventory_.findByCodeInContainer(inventory_.getElements(), criteria.getCode()));
+                if (criteria.hasName())
+                    found_ = inventory_.findByNameInContainer(found_, criteria.getName());
+                if(criteria.hasType())
+                    found_ = inventory_.findByTypeInContainer(found_, criteria.getType());
             }
-
-
+            else
+            {
+                if(criteria.hasName())
+                {
+                    found_.addAll(inventory_.findByNameInContainer(inventory_.getElements(), criteria.getName()));
+                    if(criteria.hasType())
+                        found_ = inventory_.findByTypeInContainer(found_, criteria.getType());
+                }
+                else
+                    found_.addAll(inventory_.findByTypeInContainer(inventory_.getElements(), criteria.getType()));
+            }
         }
         else
             found_.add(inventory_.findByCode(criteria.getCode()));
@@ -51,8 +64,8 @@ public class Search
      */
     public void printResults()
     {
-        System.out.println("There are " + found_.size() + " objects that fit the requirements:");
+        System.out.println(found_.size() + " object" + ((found_.size() > 1) ? "s ":" ") + "fit the requirements:");
         for(TransportObject element: found_)
-            System.out.println("   " );
+            System.out.println("   " + element.getName() + " " + element.getHashCode() + " " + element.getType());
     }
 }

@@ -32,6 +32,12 @@ public class ObjectManager
     }
 
     /**
+     * Function to know if the manager contains any element
+     * @return true if all the containers are empty, else false
+     */
+    public boolean isEmpty() { return containerA_.isEmpty() && containerB_.isEmpty() && containerC_.isEmpty(); }
+
+    /**
      * Function to get all the objects from all types in a list
      * @return List containing all the objects
      */

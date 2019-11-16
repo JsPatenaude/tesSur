@@ -31,6 +31,16 @@ public class Criteria
     }
 
     /**
+     * Constructor of a criteria, empty criteria
+     */
+    public Criteria()
+    {
+        name_ = "";
+        code_ = "";
+        type_ = "";
+    }
+
+    /**
      * Constructor of a criteria, entered by user for the search
      * @param input from where the infos should be extracted
      */
@@ -50,16 +60,34 @@ public class Criteria
     public String getType() { return type_; }
 
     /**
+     * Setter for the criteria's type
+     * @param  type of the current criteria
+     */
+    public void setType(String type) { type_ = type; }
+
+    /**
      * Getter for the criteria's code
      * @return code of the current criteria
      */
     public String getCode() { return code_; }
 
     /**
+     * Setter for the criteria's code
+     * @param  code of the current criteria
+     */
+    public void setCode(String code) { code_ = code; }
+
+    /**
      * Getter for the criteria's name
      * @return name of the current criteria
      */
     public String getName() { return name_; }
+
+    /**
+     * Setter for the criteria's name
+     * @param name of the current criteria
+     */
+    public void setName(String name) { name_ = name; }
 
     /**
      * Function to know if the criteria's type is set

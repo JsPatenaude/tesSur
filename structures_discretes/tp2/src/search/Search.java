@@ -20,12 +20,19 @@ public class Search
     }
 
     /**
+     * Function to change a search's ObjectManager
+     * @param newManager new manager of the objects to replace the old one
+     */
+    public void changeManager(ObjectManager newManager) { inventory_ = newManager; }
+
+    /**
      * Function returns if an object exists depending on the criteria
      * @param criteria for the object's search
      * @return true if the object exists, else false
      */
     public boolean exists(Criteria criteria)
     {
+        found_ = new HashSet<>();
         if(criteria.getCode().length() < 5)
         {
             if(criteria.hasCode())

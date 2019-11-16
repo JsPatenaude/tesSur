@@ -5,6 +5,7 @@ import search.Search;
 import transportObject.ObjectManager;
 import transportObject.TransportObject;
 
+
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -35,25 +36,30 @@ public class Menu {
                     displaySearch();
                     break;
                 case 3:
-                    System.out.println("----------Add to cart----------");
-                    //takeOrder();
+                    System.out.println("----------Add To Order----------");
+                    addToOrder();
                     break;
                 case 4:
-                    System.out.println("----------Remove from cart----------");
-                    //displayOrder();
+                    System.out.println("----------Remove From Order----------");
+                    //removeFromOrder();
                     break;
                 case 5:
-                    System.out.println("----------Remove all from cart----------");
-                    //findShortestPath();
+                    System.out.println("----------Empty Order----------");
+                    //emptyOrder();
                     break;
                 case 6:
-                    System.out.println("----------Execute order----------");
-                    //findShortestPath();
+                    System.out.println("----------Process Order----------");
+                    order();
                     break;
             }
             choice = getUserChoice();
         }
         System.out.println("End of program");
+    }
+
+    private void addToOrder()
+    {
+
     }
 
     /**
@@ -66,10 +72,7 @@ public class Menu {
         System.out.println("Choose between the following options: ");
         System.out.println("1 - Initiate");
         System.out.println("2 - Research Object");
-        System.out.println("3 - Add to cart");
-        System.out.println("4 - Remove from cart");
-        System.out.println("5 - Remove all from cart");
-        System.out.println("6 - Execute order");
+        System.out.println("3 - Order");
         System.out.println("To quit enter 'Q'");
 
         String userInput = inputStream.nextLine();
@@ -146,6 +149,11 @@ public class Menu {
 //        else
 //            order.display();
 //    }
+
+    private void order()
+    {
+
+    }
 
     /**
      * Displays the graph (if created before) or an error!

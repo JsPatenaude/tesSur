@@ -31,6 +31,19 @@ public class Criteria
     }
 
     /**
+     * Constructor of a criteria, entered by user for the search
+     * @param input from where the infos should be extracted
+     */
+    public Criteria(String input)
+    {
+        int positionSpace = input.indexOf(" ");
+        name_ = input.substring(0, positionSpace);
+        int positionSpace2 = input.substring(positionSpace + 1).indexOf(" ") + positionSpace + 1;
+        code_ = input.substring(positionSpace + 1, positionSpace2);
+        type_ = input.substring(positionSpace2 + 1);
+    }
+
+    /**
      * Getter for the criteria's type
      * @return type of the current criteria
      */

@@ -1,4 +1,5 @@
 package transportObject;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ObjectManager
@@ -31,6 +32,19 @@ public class ObjectManager
     }
 
     /**
+     * Function to get all the objects from all types in a list
+     * @return List containing all the objects
+     */
+    public ArrayList<String> getElementsString()
+    {
+        HashSet<TransportObject> contains = getElements();
+        ArrayList<String> list = new ArrayList<>();
+        for(TransportObject element: contains)
+            list.add(element.getName() + " " + element.getHashCode() + " " + element.getType());
+        return list;
+    }
+
+    /**
      * Function to add an object to it's container
      * @param  toAdd object that should be added
      */
@@ -46,6 +60,38 @@ public class ObjectManager
                 break;
             case "C" :
                 containerC_.add(new TransportObjectC(toAdd));
+                break;
+        }
+    }
+
+    /**
+     * Function to remove an object to it's container
+     * @param  toRemove object that should be added
+     */
+    public void remove(TransportObject toRemove)
+    {
+        switch (toRemove.type_)
+        {
+            case "A" :
+                for(TransportObjectA element: containerA_)
+                    if(element.code_.equals(toRemove.code_)) {
+                        containerA_.remove(element);
+                        break;
+                    }
+                break;
+            case "B" :
+                for(TransportObjectB element: containerB_)
+                    if(element.code_.equals(toRemove.code_)) {
+                        containerA_.remove(element);
+                        break;
+                    }
+                break;
+            case "C" :
+                for(TransportObjectC element: containerC_)
+                    if(element.code_.equals(toRemove.code_)) {
+                        containerA_.remove(element);
+                        break;
+                    }
                 break;
         }
     }

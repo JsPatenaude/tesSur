@@ -46,4 +46,10 @@ public abstract class TransportObject
      * @return the object's name
      */
     public String getName() { return name_; }
+
+    /**
+     * Function to get a string from the object
+     * @return the object's string
+     */
+    public String getString() { return name_ + " " + code_ + " " + type_; }
 }

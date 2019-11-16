@@ -7,30 +7,6 @@ public class Criteria
     private String name_;
 
     /**
-     * Constructor of a criteria, entered by user for the search
-     * @param name of the object searched for
-     * @param code of the object searched for
-     * @param type of the object searched for
-     */
-    public Criteria(String name, String code, String type)
-    {
-        name_ = name;
-        code_ = code;
-        type_ = type;
-    }
-
-    /**
-     * Constructor of a criteria, entered by user for the search
-     * @param list where index 0 is the name, index 1 is the code and index 2 is the type
-     */
-    public Criteria(String[] list)
-    {
-        name_ = list[0];
-        code_ = list[1];
-        type_ = list[2];
-    }
-
-    /**
      * Constructor of a criteria, empty criteria
      */
     public Criteria()

@@ -79,7 +79,7 @@ public class ReadFileLogic {
     private String getStringAtPosition()
     {
         int spaceIndex = line.indexOf(' ');
-        String stringRead = spaceIndex != -1 ? line.substring(0, spaceIndex) : line.substring(0);
+        String stringRead = spaceIndex != -1 ? line.substring(0, spaceIndex) : line;
         line = line.substring(spaceIndex + 1);
         return stringRead;
     }

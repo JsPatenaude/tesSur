@@ -7,8 +7,6 @@ import transportObject.TransportObject;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
@@ -16,6 +14,7 @@ import java.util.HashSet;
 public class Menuu
 {
     private JFrame mainWindow;
+    private JList<String> suggested;
     private DefaultListModel<String> suggestedModel;
     private JList<String> available;
     private DefaultListModel<String> availableModel;
@@ -51,10 +50,9 @@ public class Menuu
         ReadFileLogic file = new ReadFileLogic();
         HashSet<TransportObject> objectsInFile = file.getObjectsInFile();
         if(objectsInFile.isEmpty())
-            System.out.println("Sorry!! There was a problem with the initiation of the program :(");
+            JOptionPane.showMessageDialog(mainWindow, "Sorry!! There was a problem with the initiation of the program :(");
         else
         {
-            System.out.println("File read and successfully!");
             for(TransportObject element: objectsInFile)
                 manager.add(element);
             availableModel.addAll( manager.getElementsString() );
@@ -62,12 +60,11 @@ public class Menuu
     }
 
     private void switchElements(JList<String> listFrom, DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
-                                ObjectManager from, ObjectManager to, boolean isFromCart)
+                                ObjectManager from, ObjectManager to, boolean removeFromAvailable)
     {
         if(listFrom.getSelectedValue() != null)
         {
             String selected = listFrom.getSelectedValue();
-            System.out.println(selected);
             Criteria searchSelected = new Criteria(selected);
             TransportObject result = from.findByCode(searchSelected.getCode());
             if (result != null)
@@ -76,7 +73,7 @@ public class Menuu
                     JOptionPane.showMessageDialog(mainWindow, "This item is already in cart!");
                     return ;
                 }
-                if(listFrom.equals(available))
+                if(!listFrom.equals(orderManager))
                     weightInt += result.getWeight();
                 else
                     weightInt -= result.getWeight();
@@ -84,16 +81,14 @@ public class Menuu
                 if(weightInt > 25)
                     JOptionPane.showMessageDialog(mainWindow, "Warning: Critical weight!!\n Current Weight" +
                             " is " + weight.getText() + " > allowed weight of 25 kg.");
-
-                if(isFromCart)
+                from.remove(result);
+                modelFrom.removeElement(result.getString());
+                to.add(result);
+                modelTo.add(modelTo.size(), result.getString());
+                if(removeFromAvailable)
                 {
-                    from.remove(result);
-                    modelFrom.removeElement(result.getString());
-                }
-                else
-                {
-                    to.add(result);
-                    modelTo.add(modelTo.size(), result.getString());
+                    manager.remove(result);
+                    availableModel.removeElement(result.getString());
                 }
             }
         }
@@ -109,77 +104,64 @@ public class Menuu
 
         JButton initiate = new JButton("Initiate");
         initiate.setBounds(POSITIONX,10, BUTTONWIDTH, BUTTONHEIGHT);
-        initiate.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(manager.isEmpty())
-                    readFile();
-                else
-                    JOptionPane.showMessageDialog(mainWindow, "File already read.");
-            }
+        initiate.addActionListener(e -> {
+            if(manager.isEmpty())
+                readFile();
+            else
+                JOptionPane.showMessageDialog(mainWindow, "File already read.");
         });
 
         JButton addToOrder = new JButton("Add To Order");
         addToOrder.setBounds(POSITIONX,60, BUTTONWIDTH, BUTTONHEIGHT);
-        addToOrder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { switchElements(available, availableModel, cartModel, manager, orderManager, false); }
-        });
+        addToOrder.addActionListener(e -> switchElements(available, availableModel, cartModel, manager, orderManager, false));
+
+        JButton addFromSuggestion = new JButton("Add From Suggestion To Order");
+        addFromSuggestion.setBounds(POSITIONX,110, BUTTONWIDTH, BUTTONHEIGHT);
+        addFromSuggestion.addActionListener(e -> switchElements(suggested, suggestedModel, cartModel, suggestedItems, orderManager, true));
 
         JButton removeFromOrder = new JButton("Remove From Order");
-        removeFromOrder.setBounds(POSITIONX,110, BUTTONWIDTH, BUTTONHEIGHT);
-        removeFromOrder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { switchElements(cart, cartModel, availableModel, orderManager, manager, true); }
-        });
+        removeFromOrder.setBounds(POSITIONX,160, BUTTONWIDTH, BUTTONHEIGHT);
+        removeFromOrder.addActionListener(e -> switchElements(cart, cartModel, availableModel, orderManager, manager, false));
 
         JButton emptyOrder = new JButton("Empty Order");
-        emptyOrder.setBounds(POSITIONX,160, BUTTONWIDTH, BUTTONHEIGHT);
-        emptyOrder.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
-                cartModel.removeAllElements();
-                availableModel.removeAllElements();
-                orderManager = new ObjectManager();
-                manager = new ObjectManager();
-                readFile();
-            }
+        emptyOrder.setBounds(POSITIONX,210, BUTTONWIDTH, BUTTONHEIGHT);
+        emptyOrder.addActionListener(e -> {
+            cartModel.removeAllElements();
+            availableModel.removeAllElements();
+            orderManager = new ObjectManager();
+            manager = new ObjectManager();
+            weightInt = 0;
+            weight.setText("0 kg");
+            readFile();
         });
 
         JButton order = new JButton("Order");
-        order.setBounds(POSITIONX,210, BUTTONWIDTH, BUTTONHEIGHT);
-        order.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e)
+        order.setBounds(POSITIONX,260, BUTTONWIDTH, BUTTONHEIGHT);
+        order.addActionListener(e -> {
+            if(weightInt > 25)
+                JOptionPane.showMessageDialog(mainWindow, "Sorry the cart's weight should be less than 25 kg to order\n" +
+                        "Remove some items and try again later :)");
+            else
             {
-                if(weightInt > 25)
-                    JOptionPane.showMessageDialog(mainWindow, "Sorry the cart's weight should be less than 25 kg to order\n" +
-                            "Remove some items and try again later :)");
-                else
+                for(TransportObject element: orderManager.getElements())
                 {
-                    for(TransportObject element: orderManager.getElements())
-                    {
-                        manager.remove(element);
-                        availableModel.removeElement(element.getString());
-                    }
-                    cartModel.removeAllElements();
-                    orderManager = new ObjectManager();
-                    weightInt = 0;
-                    weight.setText("0 kg");
+                    manager.remove(element);
+                    availableModel.removeElement(element.getString());
                 }
+                cartModel.removeAllElements();
+                orderManager = new ObjectManager();
+                weightInt = 0;
+                weight.setText("0 kg");
             }
         });
 
         JButton quit = new JButton("Quit");
-        quit.setBounds(POSITIONX,260, BUTTONWIDTH, BUTTONHEIGHT);
-        quit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) { System.exit(0); }
-        });
+        quit.setBounds(POSITIONX,310, BUTTONWIDTH, BUTTONHEIGHT);
+        quit.addActionListener(e -> System.exit(0));
 
         mainWindow.add(initiate);
         mainWindow.add(addToOrder);
+        mainWindow.add(addFromSuggestion);
         mainWindow.add(removeFromOrder);
         mainWindow.add(emptyOrder);
         mainWindow.add(order);
@@ -194,7 +176,7 @@ public class Menuu
 
         JScrollPane scrollPane = new JScrollPane();
         suggestedModel = new DefaultListModel<>();
-        JList<String> suggested = new JList<String>(suggestedModel);
+        suggested = new JList<>(suggestedModel);
 
         scrollPane.setViewportView(suggested);
         scrollPane.setBounds(300,52, 200, 200);
@@ -221,7 +203,7 @@ public class Menuu
         mainWindow.add(code);
     }
 
-    void addToSuggested(Search search)
+    private void addToSuggested(Search search)
     {
         suggestedModel.removeAllElements();
         suggestedItems = new ObjectManager();
@@ -251,18 +233,16 @@ public class Menuu
         type.addItem("C");
         type.setBounds(POSITIONX,302, LABELWIDTH, LABELHEIGHT);
         mainWindow.add(type);
-        type.addActionListener (new ActionListener () {
-            public void actionPerformed(ActionEvent e) {
-                String input = type.getSelectedItem().toString();
-                currentCriteria.setType(input);
-                suggestedItems = new ObjectManager();
-                suggestedModel.removeAllElements();
-                if(search.exists(currentCriteria))
-                {
-                    for(TransportObject element: search.getResults())
-                        suggestedItems.add(element);
-                    suggestedModel.addAll(suggestedItems.getElementsString());
-                }
+        type.addActionListener (e -> {
+            String input = type.getSelectedItem().toString();
+            currentCriteria.setType(input);
+            suggestedItems = new ObjectManager();
+            suggestedModel.removeAllElements();
+            if(search.exists(currentCriteria))
+            {
+                for(TransportObject element: search.getResults())
+                    suggestedItems.add(element);
+                suggestedModel.addAll(suggestedItems.getElementsString());
             }
         });
 
@@ -327,7 +307,7 @@ public class Menuu
 
         JScrollPane scrollPane = new JScrollPane();
         cartModel = new DefaultListModel<>();
-        cart = new JList<String>(cartModel);
+        cart = new JList<>(cartModel);
 
         scrollPane.setViewportView(cart);
         scrollPane.setBounds(850,52, 200, 300);
@@ -352,7 +332,6 @@ public class Menuu
 
     public static void main(String[] args)
     {
-        Menuu mainMenu = new Menuu();
-
+        new Menuu();
     }
 }

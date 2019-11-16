@@ -65,14 +65,4 @@ public class Search
      * @return HashSet containing all the objects that fit the criteria of the previous exists
      */
     public HashSet<TransportObject> getResults() { return found_; }
-
-    /**
-     * Function to print the results in the console
-     */
-    public void printResults()
-    {
-        System.out.println(found_.size() + " object" + ((found_.size() > 1) ? "s ":" ") + "fit the requirements:");
-        for(TransportObject element: found_)
-            System.out.println("   " + element.getName() + " " + element.getHashCode() + " " + element.getType());
-    }
 }

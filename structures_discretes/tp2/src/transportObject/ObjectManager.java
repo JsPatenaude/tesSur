@@ -102,21 +102,21 @@ public class ObjectManager
         }
     }
 
-    /**
-     * Function to find objects using their type
-     * @param  type that we are searching for
-     * @return the container of the type we are searching for
-     */
-    public<T extends TransportObject> HashSet<T> findByType(String type)
-    {
-        switch (type)
-        {
-            case "A" : return (HashSet<T>) containerA_;
-            case "B" : return (HashSet<T>) containerB_;
-            case "C" : return (HashSet<T>) containerC_;
-            default  : return null;
-        }
-    }
+//    /**
+//     * Function to find objects using their type
+//     * @param  type that we are searching for
+//     * @return the container of the type we are searching for
+//     */
+//    public<T extends TransportObject> HashSet<T> findByType(String type)
+//    {
+//        switch (type)
+//        {
+//            case "A" : return (HashSet<T>) containerA_;
+//            case "B" : return (HashSet<T>) containerB_;
+//            case "C" : return (HashSet<T>) containerC_;
+//            default  : return null;
+//        }
+//    }
 
     /**
      * Function to find objects using their type inside a container
@@ -193,18 +193,18 @@ public class ObjectManager
         return found;
     }
 
-    /**
-     * Function to search all containers and find the objects with a certain name
-     * @param name name of the objects we are searching for
-     * @return HashSet containing all the object with the required name
-     */
-    public HashSet<TransportObject> findByName(String name)
-    {
-        HashSet<TransportObject> found = new HashSet<>();
-        found.addAll(findByNameInContainer(containerA_, name));
-        found.addAll(findByNameInContainer(containerB_, name));
-        found.addAll(findByNameInContainer(containerC_, name));
-        return found;
-    }
+//    /**
+//     * Function to search all containers and find the objects with a certain name
+//     * @param name name of the objects we are searching for
+//     * @return HashSet containing all the object with the required name
+//     */
+//    public HashSet<TransportObject> findByName(String name)
+//    {
+//        HashSet<TransportObject> found = new HashSet<>();
+//        found.addAll(findByNameInContainer(containerA_, name));
+//        found.addAll(findByNameInContainer(containerB_, name));
+//        found.addAll(findByNameInContainer(containerC_, name));
+//        return found;
+//    }
 
 }

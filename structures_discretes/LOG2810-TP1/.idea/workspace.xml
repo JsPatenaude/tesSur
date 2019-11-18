@@ -2,31 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9671715f-c65e-4a24-8927-a0f18d1abbff" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/structures_discretes.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tp2/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tp2/src/file/ReadFileLogic.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../tp2/src/menu/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/file/ReadFileLogic.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/file/ReadFileLogic.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/file/ReadPaths.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/file/ReadPaths.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphConsole.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/graph/GraphConsole.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/menu/Order.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/Robot.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/Robot.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/RobotX.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/RobotX.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/RobotY.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/RobotY.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/RobotZ.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/robot/RobotZ.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/AllPath.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/AllPath.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/route/RouteAlgorithm.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/sections/Section.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/sections/Section.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectA.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectA.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectB.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectC.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/LOG2810-TP1/com/transportObject/TransportObjectC.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tp2/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../tp2/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tp2/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../tp2/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../tp2/src/ReadFileLogic.java" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -111,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571857812539</updated>
-      <workItem from="1573661181503" duration="5667000" />
+      <workItem from="1573661181503" duration="5776000" />
     </task>
     <servers />
   </component>

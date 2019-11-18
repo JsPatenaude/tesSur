@@ -1,250 +1,358 @@
-//package menu;
-//import file.ReadFileLogic;
-//import search.Criteria;
-//import search.Search;
-//import transportObject.ObjectManager;
-//import transportObject.TransportObject;
-//
-//
-//import java.util.HashSet;
-//import java.util.Scanner;
-//
-//public class Menu {
-//    private Scanner inputStream = new Scanner(System.in);
-//    private HashSet<TransportObject> objectsInFile = new HashSet<>();
-//    private ObjectManager manager = new ObjectManager();
-//
-//    /**
-//     * Constructor, asks user for a menu choice until the user quits.
-//     */
-//    private Menu()
-//    {
-//        int choice = getUserChoice();
-//        while(choice != 0)
-//        {
-//            switch (choice)
-//            {
-//                default:
-//                    System.out.println("Please enter a valid choice!");
-//                    break;
-//                case 1:
-//                    System.out.println("----------Initiate----------");
-//                    initiate();
-//                    break;
-//                case 2:
-//                    System.out.println("----------Research Object----------");
-//                    displaySearch();
-//                    break;
-//                case 3:
-//                    System.out.println("----------Add To Order----------");
-//                    addToOrder();
-//                    break;
-//                case 4:
-//                    System.out.println("----------Remove From Order----------");
-//                    //removeFromOrder();
-//                    break;
-//                case 5:
-//                    System.out.println("----------Empty Order----------");
-//                    //emptyOrder();
-//                    break;
-//                case 6:
-//                    System.out.println("----------Process Order----------");
-//                    order();
-//                    break;
-//            }
-//            choice = getUserChoice();
-//        }
-//        System.out.println("End of program");
-//    }
-//
-//    private void addToOrder()
-//    {
-//
-//    }
-//
-//    /**
-//     * Displays the available options to the user
-//     * @return What the user chose, or 0 to quit
-//     */
-//    private int printOptions()
-//    {
-//        System.out.println("\n");
-//        System.out.println("Choose between the following options: ");
-//        System.out.println("1 - Initiate");
-//        System.out.println("2 - Research Object");
-//        System.out.println("3 - Order");
-//        System.out.println("To quit enter 'Q'");
-//
-//        String userInput = inputStream.nextLine();
-//        int input = -1;
-//        try {
-//            input = Character.getNumericValue(userInput.charAt(0));
-//        } catch(StringIndexOutOfBoundsException error) {
-//            System.out.println("Enter a valid choice!");
-//            input = printOptions();
-//        }
-//        return userInput.equals("Q") ?  0 : input;
-//    }
-//
-//    /**
-//     * Get the user's menu choice, and treat errors
-//     * @return What the user chooses
-//     */
-//    private int getUserChoice() { return printOptions(); }
-//
-//    /**
-//     * Created an order from user's input
-//     */
-////    private void takeOrder()
-//////    {
-//////        boolean validChoice = false;
-//////        while(!validChoice)
-//////        {
-//////            try {
-//////                System.out.println("Object A amount : ");
-//////                Scanner amountA = new Scanner(System.in);
-//////                order.takeOrder(TransportObjectA.getName(), amountA.nextInt());
-//////                validChoice = true;
-//////            } catch (InputMismatchException error) {
-//////                System.out.println("Enter a valid number!");
-//////                validChoice = false;
-//////            }
-//////        }
-//////
-//////        validChoice = false;
-//////        while(!validChoice)
-//////        {
-//////            try {
-//////                System.out.println("Object B amount : ");
-//////                Scanner amountB = new Scanner(System.in);
-//////                order.takeOrder(TransportObjectB.getName(), amountB.nextInt());
-//////                validChoice = true;
-//////            } catch (InputMismatchException error) {
-//////                System.out.println("Enter a valid number!");
-//////                validChoice = false;
-//////            }
-//////        }
-//////        validChoice = false;
-//////        while(!validChoice)
-//////        {
-//////            try {
-//////                System.out.println("Object C amount : ");
-//////                Scanner amountC = new Scanner(System.in);
-//////                order.takeOrder(TransportObjectC.getName(), amountC.nextInt());
-//////                validChoice = true;
-//////            } catch (InputMismatchException error) {
-//////                System.out.println("Enter a valid number!");
-//////                validChoice = false;
-//////            }
-//////        }
-//////    }
-//
-//    /**
-//     * Displays the order (if created before) or an error!
-//     */
-////    private void displayOrder()
-////    {
-////        if(order.getNumberOfA() == 0 && order.getNumberOfB() == 0 && order.getNumberOfC() == 0)
-////            System.out.println("Your order is empty!");
-////        else
-////            order.display();
-////    }
-//
-//    private void order()
-//    {
-//
-//    }
-//
-//    /**
-//     * Displays the graph (if created before) or an error!
-//     */
-//    private void displaySearch()
-//    {
-//        System.out.println("Enter a type A, B or C (anything else will be considered as an empty field)");
-//        String type = "";
-//        String userInput = inputStream.nextLine();
-//        try {
-//            type = userInput.substring(0,1).toUpperCase();
-//            if(!type.equals("A") && !type.equals("B") && !type.equals("C"))
-//                type = null;
-//        } catch(StringIndexOutOfBoundsException error) {
-//            System.out.println("Error in type");
-//        }
-//
-//        System.out.println("Enter a type a name: (enter to skip)");
-//        String name = "";
-//        userInput = inputStream.nextLine();
-//        try {
-//            name = userInput;
-//        } catch(StringIndexOutOfBoundsException error) {
-//            System.out.println("Error in name");
-//        }
-//
-//
-//        String code = "";
-//        boolean ok = false;
-//        while(!ok)
-//        {
-//            System.out.println("Enter a type a code: (Enter to skip) ");
-//            userInput = inputStream.nextLine();
-//            try {
-//                code = userInput;
-//                if (code.length() <= 5)
-//                    ok = true;
-//            } catch (StringIndexOutOfBoundsException error) {
-//                System.out.println("Error in code");
-//            }
-//        }
-//
-//        Criteria userCriteria = new Criteria(name, code, type);
-//        Search search = new Search(manager);
-//        if(search.exists(userCriteria))
-//            search.printResults();
-//        else
-//            System.out.println("Sorry there are not results for your search :(");
-//    }
-//
-//    /**
-//     * Creates the graph from the available information in the text file
-//     */
-//    private void initiate()
-//    {
-//
-//        //create ReadFilLogic
-//        //store inventaire dans une liste, map, etc
-//        //construire automate minimal???????????????????
-//
-//        ReadFileLogic file = new ReadFileLogic();
-//        objectsInFile = file.getObjectsInFile();
-//        if(objectsInFile.isEmpty())
-//            System.out.println("Sorry!! There was a problem with the initiation of the program :(");
-//        else
-//        {
-//            System.out.println("File read and successfully!");
-//            for(TransportObject element: objectsInFile)
-//                manager.add(element);
-//        }
-//    }
-//
-//    /**
-//     * Finds the shortest path to complete the user's order
-//     */
-////    private void findShortestPath()
-////    {
-////        if(sectionsInFile.isEmpty())
-////            System.out.println("Please Create the graph first");
-////        else
-////        {
-////            RouteAlgorithm route = new RouteAlgorithm(sectionsInFile, order.getNumberOfA(),
-////                    order.getNumberOfB(), order.getNumberOfC());
-////            if (order.getNumberOfA() != 0 || order.getNumberOfB() != 0 || order.getNumberOfC() == 0)
-////                route.displayBestRoute();
-////        }
-////    }
-//
-//    public static void main(String[] args)
-//    {
-//        Menu mainMenu = new Menu();
-//
-//    }
-//}
+package menu;
+import file.ReadFileLogic;
+import search.Criteria;
+import search.Search;
+import transportObject.ObjectManager;
+import transportObject.TransportObject;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.HashSet;
+
+public class Menu
+{
+    private JFrame mainWindow;
+    private JList<String> suggested;
+    private DefaultListModel<String> suggestedModel;
+    private JList<String> available;
+    private DefaultListModel<String> availableModel;
+    private JList<String> cart;
+    private DefaultListModel<String> cartModel;
+    private JLabel weight;
+    private int weightInt;
+
+    private ObjectManager manager = new ObjectManager();
+    private ObjectManager orderManager = new ObjectManager();
+    private ObjectManager suggestedItems = new ObjectManager();
+    private Criteria currentCriteria = new Criteria();
+
+    private Menu()
+    {
+        mainWindow = new JFrame();
+        mainWindow.setTitle("LOG2810 - TP2");
+        addButtons();
+        addSuggestedItems();
+        addInputFields();
+        addCriteria();
+        addAvailableItems();
+        addCart();
+        mainWindow.setSize(1100,500);
+        mainWindow.setLayout(null);
+        mainWindow.setVisible(true);
+        mainWindow.setResizable(false);
+        centerWindow();
+    }
+
+    private void readFile()
+    {
+        ReadFileLogic file = new ReadFileLogic();
+        HashSet<TransportObject> objectsInFile = file.getObjectsInFile();
+        if(objectsInFile.isEmpty())
+            JOptionPane.showMessageDialog(mainWindow, "Sorry!! There was a problem with the initiation of the program :(");
+        else
+        {
+            for(TransportObject element: objectsInFile)
+                manager.add(element);
+            availableModel.addAll( manager.getElementsString() );
+        }
+    }
+
+    private void switchElements(JList<String> listFrom, DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
+                                ObjectManager from, ObjectManager to, boolean removeFromAvailable, boolean addToCart)
+    {
+        if(listFrom.getSelectedValue() != null)
+        {
+            String selected = listFrom.getSelectedValue();
+            Criteria searchSelected = new Criteria(selected);
+            TransportObject result = from.findByCode(searchSelected.getCode());
+            if (result != null)
+            {
+                if(orderManager.findByCode(result.getHashCode()) != null && listFrom.equals(available)) {
+                    JOptionPane.showMessageDialog(mainWindow, "This item is already in cart!");
+                    return ;
+                }
+                if(!listFrom.equals(orderManager)){
+                    if (addToCart){
+                        weightInt += result.getWeight();
+                    }
+                    else{
+                        weightInt -= result.getWeight();
+                    }
+                }
+                weight.setText(weightInt + " kg");
+                if(weightInt > 25)
+                    JOptionPane.showMessageDialog(mainWindow, "Warning: Critical weight!!\n Current Weight" +
+                            " is " + weight.getText() + " > allowed weight of 25 kg.");
+                from.remove(result);
+                modelFrom.removeElement(result.getString());
+                to.add(result);
+                modelTo.add(modelTo.size(), result.getString());
+                if(removeFromAvailable)
+                {
+                    manager.remove(result);
+                    availableModel.removeElement(result.getString());
+                }
+            }
+        }
+        else
+            JOptionPane.showMessageDialog(mainWindow, "Error please select an element!!");
+    }
+
+    private void emptyCart(DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
+                           ObjectManager from, ObjectManager to){
+        for (var result : from.getElements()) {
+            if (result != null)
+            {
+                from.remove(result);
+                modelFrom.removeElement(result.getString());
+                to.add(result);
+                modelTo.add(modelTo.size(), result.getString());
+                manager.remove(result);
+                availableModel.removeElement(result.getString());
+            }
+        }
+    }
+
+
+    private void addButtons()
+    {
+        int BUTTONWIDTH = 200;
+        int BUTTONHEIGHT = 40;
+        int POSITIONX = 10;
+
+        JButton initiate = new JButton("Initiate");
+        initiate.setBounds(POSITIONX,10, BUTTONWIDTH, BUTTONHEIGHT);
+        initiate.addActionListener(e -> {
+            if(manager.isEmpty())
+                readFile();
+            else
+                JOptionPane.showMessageDialog(mainWindow, "File already read.");
+        });
+
+        JButton addToOrder = new JButton("Add To Cart");
+        addToOrder.setBounds(POSITIONX,60, BUTTONWIDTH, BUTTONHEIGHT);
+        addToOrder.addActionListener(e -> switchElements(available, availableModel, cartModel, manager, orderManager, false, true));
+
+        JButton addFromSuggestion = new JButton("Add From Suggestion To Cart");
+        addFromSuggestion.setBounds(POSITIONX,110, BUTTONWIDTH, BUTTONHEIGHT);
+        addFromSuggestion.addActionListener(e -> switchElements(suggested, suggestedModel, cartModel, suggestedItems, orderManager, true, true));
+
+        JButton removeFromOrder = new JButton("Remove From Cart");
+        removeFromOrder.setBounds(POSITIONX,160, BUTTONWIDTH, BUTTONHEIGHT);
+        removeFromOrder.addActionListener(e -> switchElements(cart, cartModel, availableModel, orderManager, manager, false, false));
+
+        JButton emptyOrder = new JButton("Empty Cart");
+        emptyOrder.setBounds(POSITIONX,210, BUTTONWIDTH, BUTTONHEIGHT);
+        emptyOrder.addActionListener(e -> {
+            emptyCart(cartModel, availableModel, orderManager, manager);
+            cartModel.removeAllElements();
+            orderManager = new ObjectManager();
+            weightInt = 0;
+            weight.setText("0 kg");
+        });
+
+        JButton order = new JButton("Order");
+        order.setBounds(POSITIONX,260, BUTTONWIDTH, BUTTONHEIGHT);
+        order.addActionListener(e -> {
+            if(weightInt == 0){
+                JOptionPane.showMessageDialog(mainWindow, "Sorry your cart is empty :(\n Too bad if you don't want any of these items ¯\\_(ツ)_/¯");
+            }
+            else if(weightInt > 25)
+                JOptionPane.showMessageDialog(mainWindow, "Sorry the cart's weight should be less than 25 kg to order\n" +
+                        "Remove some items and try again later :)");
+            else
+            {
+                for(TransportObject element: orderManager.getElements())
+                {
+                    manager.remove(element);
+                    availableModel.removeElement(element.getString());
+                }
+                cartModel.removeAllElements();
+                orderManager = new ObjectManager();
+                weightInt = 0;
+                weight.setText("0 kg");
+            }
+        });
+
+        JButton quit = new JButton("Quit");
+        quit.setBounds(POSITIONX,310, BUTTONWIDTH, BUTTONHEIGHT);
+        quit.addActionListener(e -> System.exit(0));
+
+        mainWindow.add(initiate);
+        mainWindow.add(addToOrder);
+        mainWindow.add(addFromSuggestion);
+        mainWindow.add(removeFromOrder);
+        mainWindow.add(emptyOrder);
+        mainWindow.add(order);
+        mainWindow.add(quit);
+    }
+
+    private void addSuggestedItems()
+    {
+        JLabel suggestedLabel = new JLabel("Suggested Items using inputted criteria");
+        suggestedLabel.setBounds(250 ,22, 275, 40);
+        mainWindow.add(suggestedLabel);
+
+        JScrollPane scrollPane = new JScrollPane();
+        suggestedModel = new DefaultListModel<>();
+        suggested = new JList<>(suggestedModel);
+
+        scrollPane.setViewportView(suggested);
+        scrollPane.setBounds(300,52, 200, 200);
+        mainWindow.add(scrollPane);
+    }
+
+    private void addInputFields()
+    {
+        int POSITIONX = 300;
+        int LABELWIDTH = 75;
+        int LABELHEIGHT = 40;
+
+        JLabel type = new JLabel("Type");
+        type.setBounds(POSITIONX,290, LABELWIDTH, LABELHEIGHT);
+        mainWindow.add(type);
+
+        JLabel name = new JLabel("Name");
+        name.setBounds(POSITIONX,340, LABELWIDTH, LABELHEIGHT);
+        mainWindow.add(name);
+
+
+        JLabel code = new JLabel("Code");
+        code.setBounds(POSITIONX,390, LABELWIDTH, LABELHEIGHT);
+        mainWindow.add(code);
+    }
+
+    private void addToSuggested(Search search)
+    {
+        suggestedModel.removeAllElements();
+        suggestedItems = new ObjectManager();
+        if(search.exists(currentCriteria))
+        {
+            for(TransportObject element: search.getResults())
+                suggestedItems.add(element);
+            suggestedModel.addAll(suggestedItems.getElementsString());
+        }
+    }
+
+    private void addCriteria()
+    {
+        int POSITIONX = 350;
+        int LABELWIDTH = 150;
+        int LABELHEIGHT = 20;
+        Search search = new Search(manager);
+
+        JLabel criteriaLabel = new JLabel("Criteria To Get Suggestions");
+        criteriaLabel.setBounds(POSITIONX - 50,272, LABELWIDTH+100, LABELHEIGHT);
+        mainWindow.add(criteriaLabel);
+
+        JComboBox<String> type = new JComboBox<>();
+        type.addItem(" ");
+        type.addItem("A");
+        type.addItem("B");
+        type.addItem("C");
+        type.setBounds(POSITIONX,302, LABELWIDTH, LABELHEIGHT);
+        mainWindow.add(type);
+        type.addActionListener (e -> {
+            String input = type.getSelectedItem().toString();
+            currentCriteria.setType(input);
+            suggestedItems = new ObjectManager();
+            suggestedModel.removeAllElements();
+            if(search.exists(currentCriteria))
+            {
+                for(TransportObject element: search.getResults())
+                    suggestedItems.add(element);
+                suggestedModel.addAll(suggestedItems.getElementsString());
+            }
+        });
+
+        JTextArea name = new JTextArea();
+        name.setBounds(POSITIONX,352, LABELWIDTH, LABELHEIGHT);
+        mainWindow.add(name);
+        name.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) { }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) { }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent)
+            {
+                currentCriteria.setName(name.getText());
+                addToSuggested(search);
+            }
+        });
+
+        JTextArea code = new JTextArea();
+        code.setBounds(POSITIONX,402, LABELWIDTH, LABELHEIGHT);
+        mainWindow.add(code);
+        code.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent keyEvent) { }
+
+            @Override
+            public void keyPressed(KeyEvent keyEvent) { }
+
+            @Override
+            public void keyReleased(KeyEvent keyEvent)
+            {
+                currentCriteria.setCode(code.getText());
+                addToSuggested(search);
+            }
+        });
+    }
+
+    private void addAvailableItems()
+    {
+        JLabel availableLabel = new JLabel("Available items to add");
+        availableLabel.setBounds(620 ,22, 175, 40);
+        mainWindow.add(availableLabel);
+
+        availableModel = new DefaultListModel<>();
+        available = new JList<>(availableModel);
+
+        JScrollPane scrollPane = new JScrollPane();
+
+        scrollPane.setViewportView(available);
+        scrollPane.setBounds(600,52, 200, 400);
+        mainWindow.add(scrollPane);
+    }
+
+    private void addCart()
+    {
+        JLabel cartLabel = new JLabel("Items Currently in cart");
+        cartLabel.setBounds(870 ,22, 175, 40);
+        mainWindow.add(cartLabel);
+
+        JScrollPane scrollPane = new JScrollPane();
+        cartModel = new DefaultListModel<>();
+        cart = new JList<>(cartModel);
+
+        scrollPane.setViewportView(cart);
+        scrollPane.setBounds(850,52, 200, 300);
+        mainWindow.add(scrollPane);
+
+        JLabel weightLabel = new JLabel("Cart's Weight");
+        weightLabel.setBounds(850 ,372, 100, 20);
+        mainWindow.add(weightLabel);
+
+        weight = new JLabel("0 kg");
+        weight.setBounds(950, 372, 100, 20);
+        mainWindow.add(weight);
+    }
+
+    private void centerWindow()
+    {
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - mainWindow.getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - mainWindow.getHeight()) / 2);
+        mainWindow.setLocation(x, y);
+    }
+
+    public static void main(String[] args)
+    {
+        new Menu();
+    }
+}

@@ -1,5 +1,7 @@
 package transportObject;
 
+import java.util.HashSet;
+
 public abstract class TransportObject
 {
     protected int weight_;

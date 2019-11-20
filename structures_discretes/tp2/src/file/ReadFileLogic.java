@@ -1,5 +1,6 @@
 package file;//package com.file;
 
+import node.Node;
 import transportObject.TransportObject;
 import transportObject.TransportObjectA;
 import transportObject.TransportObjectB;
@@ -15,12 +16,76 @@ public class ReadFileLogic {
     private HashSet<TransportObject> objectsInFile;
     private String line;
 
+    private Node automat;
+
+
     /**
      * Constructor, reads data from the file
      */
     public ReadFileLogic()
     {
         objectsInFile = new HashSet<>();
+        automat = new Node(null, false, null);
+
+        /*
+        * il va falloir lire les objets dans le fichier et les mettre chacun dans un node terminal
+        * ensuite il faut creer les chemin pour acceder a ces nodes terminal (en regardant si lex lettres existent deja dans l<arbre avant de la creer)
+        * par exemple:
+        *       on lit avion, ... tous les objets jusqua la fin du fichier txt et on les met dans des nodes
+        *       on veut creer l<arbre:
+        *           creer node root vide
+        *           lire premiere lettre nom premier objet et la mettre comme children du root
+        *           lire deuxieme lettre et mettre premiere lettre et deuxieme lettre comme children de la premiere lettre
+        *           lire troisieme lettre et mettre 1er, 2e et 3e lettre comme children de la deuxieme lettre
+        *           ...
+        *           quand on arrive au premier mot complet, inserer ce mot comme le node deja cree precedemment (lors de la lecture du txt)
+        *           on recommence avec le 2e objet
+        *           si la premiere lettre du nom du 2e objet existe deja, alors partir des children de la premiere lettre et continuer
+        *           ...
+        *           troisieme objet
+        *           ...
+        *           quand on finit d<inserer tous les nodes terminaux (lus au depart du txt) alors on a finit de creer l<arbre
+        *
+        * exemple avec des lettres:
+        * 1.                root
+        *
+        * 2.                root
+        *                   a
+        *
+        * 3.                root
+        *                   a
+        *                 av
+        *
+        * 4.                root
+        *                   a
+        *                 av
+        *               avi
+        * ...
+        * 6.                root
+        *                    a
+        *                 av
+        *               avi
+        *             avio
+        *           avion
+        *
+        * les node de avion sont inseres (tous les objets ayant le nom avion)
+        *
+        * on continue avec ami, amie, ...
+        *
+        *
+        *
+        *
+        *
+        * apres la creation de cet automate, on refait le meme processus mais avec le code au lieu du nom
+        *
+        * on ne fait pas d<automate pour le type pck cest simple
+        *
+        * on fait finalement le reste du code comme avant et tout fonctionne
+        *
+        * */
+
+
+
         readFile();
     }
 

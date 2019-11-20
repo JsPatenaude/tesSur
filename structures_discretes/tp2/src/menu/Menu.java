@@ -22,11 +22,14 @@ public class Menu
     private DefaultListModel<String> cartModel;
     private JLabel weight;
     private int weightInt;
+    private JLabel number;
+    private int suggest = 0;
 
     private ObjectManager manager = new ObjectManager();
     private ObjectManager orderManager = new ObjectManager();
     private ObjectManager suggestedItems = new ObjectManager();
     private Criteria currentCriteria = new Criteria();
+
 
     private Menu()
     {
@@ -195,6 +198,14 @@ public class Menu
         suggestedLabel.setBounds(250 ,22, 275, 40);
         mainWindow.add(suggestedLabel);
 
+        JLabel suggestedNumber = new JLabel("Number of suggested elements : ");
+        suggestedNumber.setBounds(300 ,250, 275, 20);
+        mainWindow.add(suggestedNumber);
+
+        number = new JLabel("0");
+        number.setBounds(490 ,250, 270, 20);
+        mainWindow.add(number);
+
         JScrollPane scrollPane = new JScrollPane();
         suggestedModel = new DefaultListModel<>();
         suggested = new JList<>(suggestedModel);
@@ -228,10 +239,18 @@ public class Menu
     {
         suggestedModel.removeAllElements();
         suggestedItems = new ObjectManager();
+        suggest = 0;
         if(search.exists(currentCriteria))
         {
-            for(TransportObject element: search.getResults())
-                suggestedItems.add(element);
+            for(TransportObject element: search.getResults()) {
+                suggest ++;
+                if (suggest < 11) {
+                    suggestedItems.add(element);
+                }
+                else{
+                    suggest --;
+                }
+            }
             suggestedModel.addAll(suggestedItems.getElementsString());
         }
     }
@@ -259,14 +278,9 @@ public class Menu
             currentCriteria.setType(input);
             suggestedItems = new ObjectManager();
             suggestedModel.removeAllElements();
-            if(search.exists(currentCriteria))
-            {
-                for(TransportObject element: search.getResults())
-                    suggestedItems.add(element);
-                suggestedModel.addAll(suggestedItems.getElementsString());
-            }
+            addToSuggested(search);
+            number.setText(suggest + " ");
         });
-
         JTextArea name = new JTextArea();
         name.setBounds(POSITIONX,352, LABELWIDTH, LABELHEIGHT);
         mainWindow.add(name);
@@ -282,6 +296,7 @@ public class Menu
             {
                 currentCriteria.setName(name.getText());
                 addToSuggested(search);
+                number.setText(suggest + " ");
             }
         });
 
@@ -300,6 +315,7 @@ public class Menu
             {
                 currentCriteria.setCode(code.getText());
                 addToSuggested(search);
+                number.setText(suggest + " ");
             }
         });
     }

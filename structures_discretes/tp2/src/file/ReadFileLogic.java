@@ -17,6 +17,7 @@ public class ReadFileLogic {
     private String line;
 
     private Node automat;
+    private HashSet<String> childrenName;
 
 
     /**
@@ -25,7 +26,10 @@ public class ReadFileLogic {
     public ReadFileLogic()
     {
         objectsInFile = new HashSet<>();
-        automat = new Node(null, false, null);
+
+        var childrenSetAutomat = new HashSet<Node>();
+        childrenName = new HashSet<String>();
+        automat = new Node("", childrenSetAutomat, false);
 
         /*
         * il va falloir lire les objets dans le fichier et les mettre chacun dans un node terminal
@@ -90,6 +94,14 @@ public class ReadFileLogic {
     }
 
     /**
+     * Function to get the automat
+     */
+    public Node getAutomat(){
+        return  automat;
+    }
+
+
+    /**
      * Function to read data from a file
      */
     private void readFile()
@@ -126,12 +138,15 @@ public class ReadFileLogic {
             {
                 case "A" :
                     objectsInFile.add(new TransportObjectA(name, code));
+                    createAutomat(name, new TransportObjectA(name, code));
                     break;
                 case "B" :
                     objectsInFile.add(new TransportObjectB(name, code));
+                    createAutomat(name, new TransportObjectB(name, code));
                     break;
                 case "C" :
                     objectsInFile.add(new TransportObjectC(name, code));
+                    createAutomat(name, new TransportObjectC(name, code));
                     break;
             }
             line = inputFileBuffer.readLine();
@@ -148,4 +163,52 @@ public class ReadFileLogic {
         line = line.substring(spaceIndex + 1);
         return stringRead;
     }
+
+    /**
+     * Function to create an automat (tree) from the inventory
+     */
+    private void createAutomat(String stringRead, TransportObject object){
+//        if (automat.getChildrenSet().contains())
+
+        // faut pas automat children contienne deja un node pareil (pas 2x meme nom)
+        // si le nom du precedent + sa lettre de + != le nom dun objet (faire un for avant)
+        //      ajouter un node avec le nom du precedent + sa lettre de +
+        //      createAutomat(nouveau nom)
+        // sinon
+        //      ajouter node avec lettre de plus et lui assigner l'objet inventaire qui correspond a son nom
+
+        // cette fct dans for loop pour chaque ligne lue du fichier
+
+
+        String lastString = "";
+        Node node = automat;
+        Node child = null;
+
+        // foreach letter in the string read
+        for (var i = 0; i < stringRead.length(); ++i){
+            var nodeString = lastString + stringRead.charAt(i);
+            child = new Node(nodeString, new HashSet<Node>(), false);
+
+            lastString = nodeString;
+
+            // if node string is not already in the automat
+            if (!node.getAllChildrenName(node, childrenName).contains(nodeString)){
+                node.addChild(child);
+                node = child;
+            }
+            else{
+                if (node.getNodeByName(node, nodeString) != null){
+                    node = node.getNodeByName(node, nodeString);
+                }
+            }
+        }
+
+        // set the node as terminal
+        if (child != null){
+            child.setTerminal(true);
+            child.addObjects(object);
+        }
+
+    }
+
 }

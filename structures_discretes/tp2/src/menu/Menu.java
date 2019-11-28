@@ -1,4 +1,5 @@
 package menu;
+import file.Automate;
 import file.ReadFileLogic;
 import search.Criteria;
 import search.Search;
@@ -29,6 +30,7 @@ public class Menu
     private ObjectManager orderManager = new ObjectManager();
     private ObjectManager suggestedItems = new ObjectManager();
     private Criteria currentCriteria = new Criteria();
+    Search search;
 
 
     private Menu()
@@ -52,6 +54,7 @@ public class Menu
     {
         ReadFileLogic file = new ReadFileLogic();
         HashSet<TransportObject> objectsInFile = file.getObjectsInFile();
+        search = new Search(manager, file.getAutomateNames(), file.getAutomateCodes());
         if(objectsInFile.isEmpty())
             JOptionPane.showMessageDialog(mainWindow, "Sorry!! There was a problem with the initiation of the program :(");
         else
@@ -117,7 +120,6 @@ public class Menu
             }
         }
     }
-
 
     private void addButtons()
     {
@@ -243,13 +245,11 @@ public class Menu
         if(search.exists(currentCriteria))
         {
             for(TransportObject element: search.getResults()) {
-                suggest ++;
-                if (suggest < 11) {
+                suggest++;
+                if (suggest < 11)
                     suggestedItems.add(element);
-                }
-                else{
-                    suggest --;
-                }
+                else
+                    suggest--;
             }
             suggestedModel.addAll(suggestedItems.getElementsString());
         }
@@ -260,7 +260,7 @@ public class Menu
         int POSITIONX = 350;
         int LABELWIDTH = 150;
         int LABELHEIGHT = 20;
-        Search search = new Search(manager);
+        //search = new Search(manager, names, codes);
 
         JLabel criteriaLabel = new JLabel("Criteria To Get Suggestions");
         criteriaLabel.setBounds(POSITIONX - 50,272, LABELWIDTH+100, LABELHEIGHT);

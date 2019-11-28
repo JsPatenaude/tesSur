@@ -1,6 +1,5 @@
 package file;//package com.file;
 
-import node.Node;
 import transportObject.TransportObject;
 import transportObject.TransportObjectA;
 import transportObject.TransportObjectB;
@@ -9,6 +8,7 @@ import transportObject.TransportObjectC;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ReadFileLogic {
@@ -16,9 +16,11 @@ public class ReadFileLogic {
     private HashSet<TransportObject> objectsInFile;
     private String line;
 
-    private Node automat;
+    private Automate automateNames;
     private HashSet<String> childrenName;
 
+    private Automate automateCodes;
+    private HashSet<String> childrenCodes;
 
     /**
      * Constructor, reads data from the file
@@ -27,9 +29,14 @@ public class ReadFileLogic {
     {
         objectsInFile = new HashSet<>();
 
-        var childrenSetAutomat = new HashSet<Node>();
-        childrenName = new HashSet<String>();
-        automat = new Node("", childrenSetAutomat, false);
+        HashSet<Automate> childrenSetAutomat = new HashSet<>();
+        childrenName = new HashSet<>();
+        automateNames = new Automate("", childrenSetAutomat, false);
+
+
+        HashSet<Automate> childrenSetCodesAutomate = new HashSet<>();
+        childrenCodes = new HashSet<>();
+        automateCodes = new Automate("", childrenSetCodesAutomate, false);
 
         /*
         * il va falloir lire les objets dans le fichier et les mettre chacun dans un node terminal
@@ -88,18 +95,9 @@ public class ReadFileLogic {
         *
         * */
 
-
-
         readFile();
+        System.out.println("Hi");
     }
-
-    /**
-     * Function to get the automat
-     */
-    public Node getAutomat(){
-        return  automat;
-    }
-
 
     /**
      * Function to read data from a file
@@ -118,12 +116,6 @@ public class ReadFileLogic {
     }
 
     /**
-     * Getter for the attribute sectionInFile
-     * @return attribute objectsInFile containing the different objects read from the file
-     */
-    public HashSet<TransportObject> getObjectsInFile() { return objectsInFile; }
-
-    /**
      * Read the sections with their information from a Buffer and store them in a set
      * @param inputFileBuffer BufferReader from where the info should be read
      */
@@ -138,15 +130,18 @@ public class ReadFileLogic {
             {
                 case "A" :
                     objectsInFile.add(new TransportObjectA(name, code));
-                    createAutomat(name, new TransportObjectA(name, code));
+                    createAutomate(name, new TransportObjectA(name, code), automateNames, childrenName);
+                    createAutomate(code, new TransportObjectA(name, code), automateCodes, childrenCodes);
                     break;
                 case "B" :
                     objectsInFile.add(new TransportObjectB(name, code));
-                    createAutomat(name, new TransportObjectB(name, code));
+                    createAutomate(name, new TransportObjectB(name, code), automateNames, childrenName);
+                    createAutomate(code, new TransportObjectB(name, code), automateCodes, childrenCodes);
                     break;
                 case "C" :
                     objectsInFile.add(new TransportObjectC(name, code));
-                    createAutomat(name, new TransportObjectC(name, code));
+                    createAutomate(name, new TransportObjectC(name, code), automateNames, childrenName);
+                    createAutomate(code, new TransportObjectC(name, code), automateCodes, childrenCodes);
                     break;
             }
             line = inputFileBuffer.readLine();
@@ -167,8 +162,9 @@ public class ReadFileLogic {
     /**
      * Function to create an automat (tree) from the inventory
      */
-    private void createAutomat(String stringRead, TransportObject object){
-//        if (automat.getChildrenSet().contains())
+    private void createAutomate(String stringRead, TransportObject object, Automate automate, HashSet<String> children)
+    {
+    // if (automat.getChildrenSet().contains())
 
         // faut pas automat children contienne deja un node pareil (pas 2x meme nom)
         // si le nom du precedent + sa lettre de + != le nom dun objet (faire un for avant)
@@ -179,36 +175,63 @@ public class ReadFileLogic {
 
         // cette fct dans for loop pour chaque ligne lue du fichier
 
+        System.out.println(stringRead);
+        Automate found = null;
+        if(automate.getAllChildrenName().contains(stringRead))
+        {
+            System.out.println("Added from here");
+            found = automate.getNodeByName(stringRead);
+            found.addObjects(object);
+            return;
+        }
 
         String lastString = "";
-        Node node = automat;
-        Node child = null;
+        Automate node = automate;
+        Automate child = null;
 
-        // foreach letter in the string read
-        for (var i = 0; i < stringRead.length(); ++i){
-            var nodeString = lastString + stringRead.charAt(i);
-            child = new Node(nodeString, new HashSet<Node>(), false);
-
-            lastString = nodeString;
-
-            // if node string is not already in the automat
-            if (!node.getAllChildrenName(node, childrenName).contains(nodeString)){
+        for (int i = 0; i < stringRead.length(); ++i)
+        {
+            lastString += stringRead.charAt(i);
+            System.out.println(lastString);
+            child = new Automate(lastString, new HashSet<>(), false);
+            //if (!node.getAllChildrenName(node, children).contains(lastString))
+            if (!node.getAllChildrenName().contains(lastString))
+            {
+                System.out.println("Creating new child");
                 node.addChild(child);
                 node = child;
             }
-            else{
-                if (node.getNodeByName(node, nodeString) != null){
-                    node = node.getNodeByName(node, nodeString);
+            else {
+                 found = node.getNodeByName(lastString);
+                if ( found != null) {
+                    System.out.println("Found corresponding node");
+                    node = found;
                 }
+                else
+                    System.out.println("Should I be somewhere?");
             }
+            children.add(lastString);
+            System.out.println();
         }
-
-        // set the node as terminal
-        if (child != null){
-            child.setTerminal(true);
-            child.addObjects(object);
-        }
-
+        child.setTerminal(true);
+        child.addObjects(object);
     }
 
+    /**
+     * Getter for the attribute automateNames
+     * @return attribute automateNames containing the different objects read from the file
+     */
+    public Automate getAutomateNames() { return automateNames; }
+
+    /**
+     * Getter for the attribute automateCodes
+     * @return attribute automateCodes containing the different objects read from the file
+     */
+    public Automate getAutomateCodes() { return automateCodes; }
+
+    /**
+     * Getter for the attribute sectionInFile
+     * @return attribute objectsInFile containing the different objects read from the file
+     */
+    public HashSet<TransportObject> getObjectsInFile() { return objectsInFile; }
 }

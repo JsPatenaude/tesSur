@@ -38,10 +38,10 @@ public class Search
             if(criteria.hasCode())
             {
                 foundAuto = automateCodes_.getNodeByName(criteria.getCode());
-                found_ = foundAuto.getObjects();
+                found_ = foundAuto.getAllChildrenObjects();
                 if (criteria.hasName()) {
                     foundAuto = automateNames_.getNodeByName(foundAuto, criteria.getName());
-                    found_ = foundAuto.getObjects();
+                    found_ = foundAuto.getAllChildrenObjects();
                 }
                     //found_ = inventory_.findByNameInContainer(found_, criteria.getName());
                 if(criteria.hasType())
@@ -51,8 +51,7 @@ public class Search
             {
                 if(criteria.hasName())
                 {
-                    //found_.addAll(inventory_.findByNameInContainer(inventory_.getElements(), criteria.getName()));
-                    found_.addAll(automateNames_.getNodeByName(criteria.getName()).getObjects());
+                    found_.addAll(automateNames_.getNodeByName(criteria.getName()).getAllChildrenObjects());
                     if(criteria.hasType())
                         found_ = inventory_.findByTypeInContainer(found_, criteria.getType());
                 }

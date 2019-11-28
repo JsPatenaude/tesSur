@@ -50,6 +50,9 @@ public class Menu
         centerWindow();
     }
 
+    /**
+     * Function to read a file creating the automate
+     */
     private void readFile()
     {
         ReadFileLogic file = new ReadFileLogic();
@@ -121,6 +124,9 @@ public class Menu
         }
     }
 
+    /**
+     * Function to add the buttons and handle the event
+     */
     private void addButtons()
     {
         int BUTTONWIDTH = 200;
@@ -193,7 +199,9 @@ public class Menu
         mainWindow.add(order);
         mainWindow.add(quit);
     }
-
+    /**
+     * Function to add the suggested item fields
+     */
     private void addSuggestedItems()
     {
         JLabel suggestedLabel = new JLabel("Suggested Items using inputted criteria");
@@ -217,6 +225,9 @@ public class Menu
         mainWindow.add(scrollPane);
     }
 
+    /**
+     * Function to add the inputs fields for the criteria
+     */
     private void addInputFields()
     {
         int POSITIONX = 300;
@@ -237,6 +248,10 @@ public class Menu
         mainWindow.add(code);
     }
 
+    /**
+     * Function to find an item using the critea entered, search for it and add it to the suggestion box
+     * @param search search algorithm to find an item
+     */
     private void addToSuggested(Search search)
     {
         suggestedModel.removeAllElements();
@@ -255,6 +270,10 @@ public class Menu
         }
     }
 
+    /**
+     * Function to add the criteria fields, and signals so when the user inputs something
+     *          it will be transmitted to the right function
+     */
     private void addCriteria()
     {
         int POSITIONX = 350;
@@ -320,6 +339,9 @@ public class Menu
         });
     }
 
+    /**
+     * Function returns to add the available items option
+     */
     private void addAvailableItems()
     {
         JLabel availableLabel = new JLabel("Available items to add");
@@ -336,6 +358,9 @@ public class Menu
         mainWindow.add(scrollPane);
     }
 
+    /**
+     * Function to add the cart options
+     */
     private void addCart()
     {
         JLabel cartLabel = new JLabel("Items Currently in cart");
@@ -359,6 +384,9 @@ public class Menu
         mainWindow.add(weight);
     }
 
+    /**
+     * Function to center the UI
+     */
     private void centerWindow()
     {
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();

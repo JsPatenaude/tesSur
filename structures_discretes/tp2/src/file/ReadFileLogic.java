@@ -150,6 +150,7 @@ public class ReadFileLogic {
 
     /**
      * Function to parse a line following this format "A B C"
+     * @return formatted string
      */
     private String getStringAtPosition()
     {
@@ -160,7 +161,11 @@ public class ReadFileLogic {
     }
 
     /**
-     * Function to create an automat (tree) from the inventory
+     * Function to create an automate (tree) from the inventory
+     * @param stringRead string to treat (name of code)
+     * @param object object being create from that string
+     * @param automate where to add the object (automateName or automateCode)
+     * @param children where to add the read string (childrenName or childrenCode)
      */
     private void createAutomate(String stringRead, TransportObject object, Automate automate, HashSet<String> children)
     {
@@ -175,11 +180,9 @@ public class ReadFileLogic {
 
         // cette fct dans for loop pour chaque ligne lue du fichier
 
-        System.out.println(stringRead);
         Automate found = null;
         if(automate.getAllChildrenName().contains(stringRead))
         {
-            System.out.println("Added from here");
             found = automate.getNodeByName(stringRead);
             found.addObjects(object);
             return;
@@ -192,26 +195,18 @@ public class ReadFileLogic {
         for (int i = 0; i < stringRead.length(); ++i)
         {
             lastString += stringRead.charAt(i);
-            System.out.println(lastString);
             child = new Automate(lastString, new HashSet<>(), false);
-            //if (!node.getAllChildrenName(node, children).contains(lastString))
             if (!node.getAllChildrenName().contains(lastString))
             {
-                System.out.println("Creating new child");
                 node.addChild(child);
                 node = child;
             }
             else {
                  found = node.getNodeByName(lastString);
-                if ( found != null) {
-                    System.out.println("Found corresponding node");
+                if ( found != null)
                     node = found;
-                }
-                else
-                    System.out.println("Should I be somewhere?");
             }
             children.add(lastString);
-            System.out.println();
         }
         child.setTerminal(true);
         child.addObjects(object);

@@ -1,8 +1,6 @@
 package file;
 
 import transportObject.TransportObject;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Automate {
@@ -87,7 +85,7 @@ public class Automate {
     {
         HashSet<TransportObject> childrenObjects = new HashSet<>();
         if (node.childrenSet_.isEmpty())
-            return childrenObjects;
+            return objects_;
         for (Automate child : node.childrenSet_)
         {
             childrenObjects.addAll(child.getObjects());

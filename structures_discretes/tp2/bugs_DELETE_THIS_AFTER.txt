@@ -1,13 +1,5 @@
-- quand ecrit mot au complet, il apparait pas
-
 - la recherche par code est prioritaire sur recherche par nom
 	(si entre nom a et code B, on obtient avion et divan, et si code B4, y reste juste divan)
-	
-- on peut add to cart meme si ca a deja ete add (depuis liste suggestion)
-	donc on se retrouve avec 2 meme elements dans le cart
-	
-- on voit un element dans suggestion meme s'il a deja ete order
-	(devrait etre disparu pour de bon)
 
 
 

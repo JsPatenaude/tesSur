@@ -1,5 +1,4 @@
 package menu;
-import file.Automate;
 import file.ReadFileLogic;
 import search.Criteria;
 import search.Search;
@@ -68,27 +67,25 @@ public class Menu
         }
     }
 
-    private void switchElements(JList<String> listFrom, DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
+    private TransportObject switchElements(JList<String> listFrom, DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
                                 ObjectManager from, ObjectManager to, boolean removeFromAvailable, boolean addToCart)
     {
+        TransportObject result = null;
         if(listFrom.getSelectedValue() != null)
         {
+            System.out.println("Is not null");
             String selected = listFrom.getSelectedValue();
             Criteria searchSelected = new Criteria(selected);
-            TransportObject result = from.findByCode(searchSelected.getCode());
+            result = from.findByCode(searchSelected.getCode());
             if (result != null)
             {
-                if(orderManager.findByCode(result.getHashCode()) != null && listFrom.equals(available)) {
-                    JOptionPane.showMessageDialog(mainWindow, "This item is already in cart!");
-                    return ;
-                }
+                if(orderManager.findByCode(result.getHashCode()) != null && listFrom.equals(available))
+                    return null;
                 if(!listFrom.equals(orderManager)){
-                    if (addToCart){
+                    if (addToCart)
                         weightInt += result.getWeight();
-                    }
-                    else{
+                    else
                         weightInt -= result.getWeight();
-                    }
                 }
                 weight.setText(weightInt + " kg");
                 if(weightInt > 25)
@@ -104,9 +101,12 @@ public class Menu
                     availableModel.removeElement(result.getString());
                 }
             }
+            else
+                JOptionPane.showMessageDialog(mainWindow, "Item already added to the cart, please refresh suggestions");
         }
         else
             JOptionPane.showMessageDialog(mainWindow, "Error please select an element!!");
+        return result;
     }
 
     private void emptyCart(DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
@@ -129,7 +129,7 @@ public class Menu
      */
     private void addButtons()
     {
-        int BUTTONWIDTH = 200;
+        int BUTTONWIDTH = 220;
         int BUTTONHEIGHT = 40;
         int POSITIONX = 10;
 
@@ -144,7 +144,11 @@ public class Menu
 
         JButton addToOrder = new JButton("Add To Cart");
         addToOrder.setBounds(POSITIONX,60, BUTTONWIDTH, BUTTONHEIGHT);
-        addToOrder.addActionListener(e -> switchElements(available, availableModel, cartModel, manager, orderManager, false, true));
+        addToOrder.addActionListener(e -> {
+            TransportObject result = switchElements(available, availableModel, cartModel, manager, orderManager, false, true);
+            suggestedItems.remove(result);
+            suggestedModel.removeElement(result.toString());
+        });
 
         JButton addFromSuggestion = new JButton("Add From Suggestion To Cart");
         addFromSuggestion.setBounds(POSITIONX,110, BUTTONWIDTH, BUTTONHEIGHT);
@@ -279,7 +283,6 @@ public class Menu
         int POSITIONX = 350;
         int LABELWIDTH = 150;
         int LABELHEIGHT = 20;
-        //search = new Search(manager, names, codes);
 
         JLabel criteriaLabel = new JLabel("Criteria To Get Suggestions");
         criteriaLabel.setBounds(POSITIONX - 50,272, LABELWIDTH+100, LABELHEIGHT);
@@ -337,6 +340,16 @@ public class Menu
                 number.setText(suggest + " ");
             }
         });
+        JButton refresh = new JButton("Refresh");
+        refresh.setBounds(POSITIONX,430, 150, 20);
+        refresh.addActionListener(e -> {
+            currentCriteria.setCode(code.getText());
+            currentCriteria.setName(name.getText());
+            currentCriteria.setType(type.getSelectedItem().toString());
+            addToSuggested(search);
+        });
+        mainWindow.add(refresh);
+
     }
 
     /**

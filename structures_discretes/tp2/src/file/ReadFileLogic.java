@@ -1,4 +1,4 @@
-package file;//package com.file;
+package file;
 
 import transportObject.TransportObject;
 import transportObject.TransportObjectA;
@@ -8,7 +8,6 @@ import transportObject.TransportObjectC;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class ReadFileLogic {
@@ -23,77 +22,21 @@ public class ReadFileLogic {
     private HashSet<String> childrenCodes;
 
     /**
-     * Constructor, reads data from the file
+     * Constructor, reads data from the file and creates the automats
      */
     public ReadFileLogic()
     {
         objectsInFile = new HashSet<>();
 
+        // automat for the name
         HashSet<Automate> childrenSetAutomat = new HashSet<>();
         childrenName = new HashSet<>();
         automateNames = new Automate("", childrenSetAutomat, false);
 
-
+        // automat for the code
         HashSet<Automate> childrenSetCodesAutomate = new HashSet<>();
         childrenCodes = new HashSet<>();
         automateCodes = new Automate("", childrenSetCodesAutomate, false);
-
-        /*
-        * il va falloir lire les objets dans le fichier et les mettre chacun dans un node terminal
-        * ensuite il faut creer les chemin pour acceder a ces nodes terminal (en regardant si lex lettres existent deja dans l<arbre avant de la creer)
-        * par exemple:
-        *       on lit avion, ... tous les objets jusqua la fin du fichier txt et on les met dans des nodes
-        *       on veut creer l<arbre:
-        *           creer node root vide
-        *           lire premiere lettre nom premier objet et la mettre comme children du root
-        *           lire deuxieme lettre et mettre premiere lettre et deuxieme lettre comme children de la premiere lettre
-        *           lire troisieme lettre et mettre 1er, 2e et 3e lettre comme children de la deuxieme lettre
-        *           ...
-        *           quand on arrive au premier mot complet, inserer ce mot comme le node deja cree precedemment (lors de la lecture du txt)
-        *           on recommence avec le 2e objet
-        *           si la premiere lettre du nom du 2e objet existe deja, alors partir des children de la premiere lettre et continuer
-        *           ...
-        *           troisieme objet
-        *           ...
-        *           quand on finit d<inserer tous les nodes terminaux (lus au depart du txt) alors on a finit de creer l<arbre
-        *
-        * exemple avec des lettres:
-        * 1.                root
-        *
-        * 2.                root
-        *                   a
-        *
-        * 3.                root
-        *                   a
-        *                 av
-        *
-        * 4.                root
-        *                   a
-        *                 av
-        *               avi
-        * ...
-        * 6.                root
-        *                    a
-        *                 av
-        *               avi
-        *             avio
-        *           avion
-        *
-        * les node de avion sont inseres (tous les objets ayant le nom avion)
-        *
-        * on continue avec ami, amie, ...
-        *
-        *
-        *
-        *
-        *
-        * apres la creation de cet automate, on refait le meme processus mais avec le code au lieu du nom
-        *
-        * on ne fait pas d<automate pour le type pck cest simple
-        *
-        * on fait finalement le reste du code comme avant et tout fonctionne
-        *
-        * */
 
         readFile();
         System.out.println("Hi");
@@ -169,18 +112,7 @@ public class ReadFileLogic {
      */
     private void createAutomate(String stringRead, TransportObject object, Automate automate, HashSet<String> children)
     {
-    // if (automat.getChildrenSet().contains())
-
-        // faut pas automat children contienne deja un node pareil (pas 2x meme nom)
-        // si le nom du precedent + sa lettre de + != le nom dun objet (faire un for avant)
-        //      ajouter un node avec le nom du precedent + sa lettre de +
-        //      createAutomat(nouveau nom)
-        // sinon
-        //      ajouter node avec lettre de plus et lui assigner l'objet inventaire qui correspond a son nom
-
-        // cette fct dans for loop pour chaque ligne lue du fichier
-
-        Automate found = null;
+        Automate found;
         if(automate.getAllChildrenName().contains(stringRead))
         {
             found = automate.getNodeByName(stringRead);

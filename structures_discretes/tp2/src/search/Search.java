@@ -33,36 +33,42 @@ public class Search
     {
         found_ = new HashSet<>();
         Automate foundAuto;
-        if(criteria.getCode().length() < 5)
+        if(criteria.getCode().length() <= 6)
         {
             if(criteria.hasCode())
             {
-                foundAuto = automateCodes_.getNodeByName(criteria.getCode());
-                found_ = foundAuto.getAllChildrenObjects();
-                if (criteria.hasName()) {
-                    foundAuto = automateNames_.getNodeByName(foundAuto, criteria.getName());
+                if (automateCodes_.getNodeByName(criteria.getCode()) != null){
+                    foundAuto = automateCodes_.getNodeByName(criteria.getCode());
                     found_ = foundAuto.getAllChildrenObjects();
-                }
-                    //found_ = inventory_.findByNameInContainer(found_, criteria.getName());
-                if(criteria.hasType())
-                    found_ = inventory_.findByTypeInContainer(found_, criteria.getType());
-            }
-            else
-            {
-                if(criteria.hasName())
-                {
-                    found_.addAll(automateNames_.getNodeByName(criteria.getName()).getAllChildrenObjects());
+                    if (criteria.hasName()) {
+                        if (automateNames_.getNodeByName(foundAuto, criteria.getName()) != null){
+                            foundAuto = automateNames_.getNodeByName(/*foundAuto, */criteria.getName());
+                            found_ = foundAuto.getAllChildrenObjects();
+                        }
+                    }
                     if(criteria.hasType())
                         found_ = inventory_.findByTypeInContainer(found_, criteria.getType());
                 }
+            }
+//            else
+//            {
+                if(criteria.hasName())
+                {
+                    if (automateNames_.getNodeByName(criteria.getName()) != null){
+                        found_.addAll(automateNames_.getNodeByName(criteria.getName()).getAllChildrenObjects());
+                        if(criteria.hasType())
+                            found_ = inventory_.findByTypeInContainer(found_, criteria.getType());
+                    }
+                }
                 else
                     found_.addAll(inventory_.findByTypeInContainer(inventory_.getElements(), criteria.getType()));
-            }
+//            }
         }
-        else {
-            found_.add(automateCodes_.getNodeByName(automateCodes_, criteria.getCode()).getObjects().iterator().next());
-            System.out.println("I am here im working1!!!");
-        }
+//        else {
+//            if (automateCodes_.getNodeByName(automateCodes_, criteria.getCode()) != null){
+//                found_.add(automateCodes_.getNodeByName(automateCodes_, criteria.getCode()).getObjects().iterator().next());
+//            }
+//        }
         return !found_.isEmpty();
     }
 

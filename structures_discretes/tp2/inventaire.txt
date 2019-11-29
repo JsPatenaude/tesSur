@@ -1,6 +1,3 @@
-a Z26A49 B
-a Z26A48 A
-a Z26A47 C
 avion B16A49 A
 avion B26A49 B
 ami 111111 B

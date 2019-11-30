@@ -67,13 +67,15 @@ public class Menu
         }
     }
 
+    /**
+     * Function to switch elements between different containers/window
+     */
     private TransportObject switchElements(JList<String> listFrom, DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
                                 ObjectManager from, ObjectManager to, boolean removeFromAvailable, boolean addToCart)
     {
         TransportObject result = null;
         if(listFrom.getSelectedValue() != null)
         {
-            System.out.println("Is not null");
             String selected = listFrom.getSelectedValue();
             Criteria searchSelected = new Criteria(selected);
             result = from.findByCode(searchSelected.getCode());
@@ -82,10 +84,13 @@ public class Menu
                 if(orderManager.findByCode(result.getHashCode()) != null && listFrom.equals(available))
                     return null;
                 if(!listFrom.equals(orderManager)){
-                    if (addToCart)
+                    if (addToCart){
+                        suggest--;
                         weightInt += result.getWeight();
-                    else
+                    }
+                    else{
                         weightInt -= result.getWeight();
+                    }
                 }
                 weight.setText(weightInt + " kg");
                 if(weightInt > 25)
@@ -109,17 +114,19 @@ public class Menu
         return result;
     }
 
+    /**
+     * Function to empty the cart
+     */
     private void emptyCart(DefaultListModel<String> modelFrom, DefaultListModel<String> modelTo,
                            ObjectManager from, ObjectManager to){
         for (var result : from.getElements()) {
-            if (result != null)
+            if(result != null)
             {
                 from.remove(result);
                 modelFrom.removeElement(result.getString());
                 to.add(result);
                 modelTo.add(modelTo.size(), result.getString());
-                manager.remove(result);
-                availableModel.removeElement(result.getString());
+                suggest--;
             }
         }
     }
@@ -146,13 +153,19 @@ public class Menu
         addToOrder.setBounds(POSITIONX,60, BUTTONWIDTH, BUTTONHEIGHT);
         addToOrder.addActionListener(e -> {
             TransportObject result = switchElements(available, availableModel, cartModel, manager, orderManager, false, true);
-            suggestedItems.remove(result);
-            suggestedModel.removeElement(result.toString());
+            if (result != null){
+                suggestedItems.remove(result);
+                suggestedModel.removeElement(result.toString());
+            }
+
         });
 
         JButton addFromSuggestion = new JButton("Add From Suggestion To Cart");
         addFromSuggestion.setBounds(POSITIONX,110, BUTTONWIDTH, BUTTONHEIGHT);
-        addFromSuggestion.addActionListener(e -> switchElements(suggested, suggestedModel, cartModel, suggestedItems, orderManager, true, true));
+        addFromSuggestion.addActionListener(e -> {
+            switchElements(suggested, suggestedModel, cartModel, suggestedItems, orderManager, true, true);
+            number.setText(suggest + " ");
+        });
 
         JButton removeFromOrder = new JButton("Remove From Cart");
         removeFromOrder.setBounds(POSITIONX,160, BUTTONWIDTH, BUTTONHEIGHT);
@@ -265,7 +278,7 @@ public class Menu
         {
             for(TransportObject element: search.getResults()) {
                 suggest++;
-                if (suggest < 11)
+                if (suggest <= 10)
                     suggestedItems.add(element);
                 else
                     suggest--;
@@ -347,6 +360,7 @@ public class Menu
             currentCriteria.setName(name.getText());
             currentCriteria.setType(type.getSelectedItem().toString());
             addToSuggested(search);
+            number.setText(suggest + " ");
         });
         mainWindow.add(refresh);
 

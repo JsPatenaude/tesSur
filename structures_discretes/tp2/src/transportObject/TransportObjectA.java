@@ -6,7 +6,7 @@ public class TransportObjectA extends TransportObject
     public static final String type = "A";
 
     /**
-     * Constructor of a transport object typee A
+     * Constructor of a transport object type A
      * @param name of the object
      * @param code unique 6 chars hexadecimal code of an object
      */

@@ -12,7 +12,6 @@ import java.util.HashSet;
 
 public class ReadFileLogic {
 
-    private HashSet<TransportObject> objectsInFile;
     private String line;
 
     private Automate automateNames;
@@ -26,8 +25,6 @@ public class ReadFileLogic {
      */
     public ReadFileLogic()
     {
-        objectsInFile = new HashSet<>();
-
         // automat for the name
         HashSet<Automate> childrenSetAutomat = new HashSet<>();
         childrenName = new HashSet<>();
@@ -39,7 +36,6 @@ public class ReadFileLogic {
         automateCodes = new Automate("", childrenSetCodesAutomate, false);
 
         readFile();
-        System.out.println("Hi");
     }
 
     /**
@@ -72,17 +68,14 @@ public class ReadFileLogic {
             switch (type)
             {
                 case "A" :
-                    objectsInFile.add(new TransportObjectA(name, code));
                     createAutomate(name, new TransportObjectA(name, code), automateNames, childrenName);
                     createAutomate(code, new TransportObjectA(name, code), automateCodes, childrenCodes);
                     break;
                 case "B" :
-                    objectsInFile.add(new TransportObjectB(name, code));
                     createAutomate(name, new TransportObjectB(name, code), automateNames, childrenName);
                     createAutomate(code, new TransportObjectB(name, code), automateCodes, childrenCodes);
                     break;
                 case "C" :
-                    objectsInFile.add(new TransportObjectC(name, code));
                     createAutomate(name, new TransportObjectC(name, code), automateNames, childrenName);
                     createAutomate(code, new TransportObjectC(name, code), automateCodes, childrenCodes);
                     break;
@@ -157,8 +150,10 @@ public class ReadFileLogic {
     public Automate getAutomateCodes() { return automateCodes; }
 
     /**
-     * Getter for the attribute sectionInFile
-     * @return attribute objectsInFile containing the different objects read from the file
+     * Getter for all the objects in the file
+     * @return all the children's objects in the automat of names (same as the automate of codes)
      */
-    public HashSet<TransportObject> getObjectsInFile() { return objectsInFile; }
+    public HashSet<TransportObject> getObjectsInFile() {
+        return new HashSet<TransportObject>(automateNames.getAllChildrenObjects());
+    }
 }

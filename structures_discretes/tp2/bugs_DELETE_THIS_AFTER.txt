@@ -1,5 +1,3 @@
 - la recherche par code est prioritaire sur recherche par nom
 	(si entre nom a et code B, on obtient avion et divan, et si code B4, y reste juste divan)
 
-
-

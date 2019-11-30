@@ -132,20 +132,6 @@ public class ObjectManager
     }
 
     /**
-     * Function to search a certain container and find all objects which code starts with a certain sequence
-     * @param code beginning of the code's sequence
-     * @return List containing all the found objects
-     */
-    public HashSet<TransportObject> findByCodeInContainer(HashSet<TransportObject> container, String code)
-    {
-        HashSet<TransportObject> found = new HashSet<>();
-        for(TransportObject element: container)
-            if(element.code_.substring(0, code.length()).equals(code))
-                found.add(element);
-        return found;
-    }
-
-    /**
      * Function to search all containers and find the object with a certain code
      * @param code unique hexadecimal code of the object we are searching for
      * @return object if found, else null
@@ -159,21 +145,6 @@ public class ObjectManager
             if(found == null)
                 found = findByCodeInContainerPrivate(containerC_, code);
         }
-        return found;
-    }
-
-    /**
-     * Function to search for objects with a name inside a container
-     * @param container contains the objects to be searched
-     * @param name name of the objects we are searching for
-     * @return HashSet containing all the object with the required name
-     */
-    public static <T extends TransportObject> HashSet<TransportObject> findByNameInContainer(HashSet<T> container, String name)
-    {
-        HashSet<TransportObject> found = new HashSet<>();
-        for(TransportObject element: container)
-            if(element.name_.substring(0, name.length()).equals(name))
-                found.add(element);
         return found;
     }
 
